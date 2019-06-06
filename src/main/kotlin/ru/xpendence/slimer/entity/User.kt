@@ -2,8 +2,6 @@ package ru.xpendence.slimer.entity
 
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
-import ru.xpendence.slimer.base.Active
-import java.time.LocalDateTime
 import javax.persistence.*
 
 /**
