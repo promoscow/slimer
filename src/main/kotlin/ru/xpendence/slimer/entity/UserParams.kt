@@ -34,4 +34,4 @@ data class UserParams(
         @Column(name = "birth_date")
         var birthDate: LocalDateTime? = null
 
-        ) : AbstractEntity()
+) : AbstractEntity()
