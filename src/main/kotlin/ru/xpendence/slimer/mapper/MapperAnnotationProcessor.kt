@@ -21,14 +21,14 @@ class MapperAnnotationProcessor : BeanPostProcessor {
 
     private fun init(bean: Any): Any {
         val managedBeanClass: Class<*> = bean.javaClass
-        val mapper: Mapper = managedBeanClass.getAnnotation(Mapper::class.java)
+        val mapper: Mapper? = managedBeanClass.getAnnotation(Mapper::class.java)
 
         if (Objects.nonNull(mapper)) {
             ReflectionUtils.doWithFields(managedBeanClass) {f ->
                 val fieldName = f.name
                 if (fieldName!= "entityClass" && fieldName != "dtoClass") return@doWithFields
                 ReflectionUtils.makeAccessible(f)
-                val targetClass: KClass<*> = if (fieldName == "entityClass") mapper.entity else mapper.dto
+                val targetClass: KClass<*> = if (fieldName == "entityClass") mapper!!.entity else mapper!!.dto
                 f.set(bean, targetClass)
             }
         }
