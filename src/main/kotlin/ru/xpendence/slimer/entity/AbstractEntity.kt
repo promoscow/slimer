@@ -33,7 +33,7 @@ open class AbstractEntity(
         if (created == null) created = LocalDateTime.now()
     }
 
-    @PrePersist
+    @PreUpdate
     fun toUpdate() {
         updated = LocalDateTime.now()
     }

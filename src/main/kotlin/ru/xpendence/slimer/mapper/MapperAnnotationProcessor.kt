@@ -15,7 +15,8 @@ import kotlin.reflect.KClass
 @Component
 class MapperAnnotationProcessor : BeanPostProcessor {
 
-    override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? = init(bean)
+    override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? =
+            if (Objects.nonNull(bean)) init(bean) else null
 
     override fun postProcessAfterInitialization(bean: Any, beanName: String): Any? = bean
 
@@ -32,6 +33,6 @@ class MapperAnnotationProcessor : BeanPostProcessor {
                 f.set(bean, targetClass)
             }
         }
-        return Any()
+        return bean
     }
 }
