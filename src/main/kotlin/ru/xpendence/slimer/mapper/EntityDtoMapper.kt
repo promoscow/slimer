@@ -13,5 +13,9 @@ interface EntityDtoMapper<E : AbstractEntity, D : AbstractDto> {
 
     fun toEntity(dto: D?): E?
 
+    fun toEntity(dto: D?, entity: E?): E?
+
     fun toDto(entity: E?): D?
+
+    fun toDto(entity: E?, dto: D?): D?
 }

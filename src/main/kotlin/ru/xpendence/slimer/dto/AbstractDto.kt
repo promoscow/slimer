@@ -12,6 +12,5 @@ open class AbstractDto(
 
         var id: Long? = null,
         var created: LocalDateTime? = null,
-        var updated: LocalDateTime? = null,
-        var active: String? = null
+        var updated: LocalDateTime? = null
 )

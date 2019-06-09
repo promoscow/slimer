@@ -23,7 +23,7 @@ open class AbstractEntity(
         @Column(name = "updated", insertable = false)
         var updated: LocalDateTime? = null,
 
-        @Column(name = "is_active")
+        @Column(name = "active")
         var active: Active = Active.ENABLED
 
 ) {

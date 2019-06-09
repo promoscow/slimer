@@ -19,9 +19,23 @@ open class AbstractMapper<E : AbstractEntity, D : AbstractDto> @Autowired constr
     private var entityClass: Class<E>? = null
     private var dtoClass: Class<D>? = null
 
-    override fun toEntity(dto: D?): E? = mapper.map(dto, entityClass)
+    override fun toEntity(dto: D?): E? = if (dto == null) null else mapper.map(dto, entityClass)
 
-    override fun toDto(entity: E?): D? = mapper.map(entity, dtoClass)
+    override fun toEntity(dto: D?, entity: E?): E? {
+        if (dto == null) return entity
+        if (entity == null) return toEntity(dto)
+        mapper.map(dto, entity)
+        return entity
+    }
+
+    override fun toDto(entity: E?): D? = if (entity == null) null else mapper.map(entity, dtoClass)
+
+    override fun toDto(entity: E?, dto: D?): D? {
+        if (entity == null) return dto
+        if (dto == null) return toDto(entity)
+        mapper.map(entity, dto)
+        return dto
+    }
 
     protected fun toEntityConverter(): Converter<D, E> = Converter {
         mapSpecificFields(it.source, it.destination)
