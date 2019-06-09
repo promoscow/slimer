@@ -17,7 +17,9 @@ import javax.annotation.PostConstruct
  */
 @Component
 @Mapper(entity = UserParams::class, dto = UserParamsDto::class)
-class UserParamsMapper @Autowired constructor(mapper: ModelMapper) : AbstractMapper<UserParams, UserParamsDto> (mapper) {
+class UserParamsMapper @Autowired constructor(
+        mapper: ModelMapper
+) : AbstractMapper<UserParams, UserParamsDto> (mapper) {
 
     @PostConstruct
     fun init() {
