@@ -25,12 +25,12 @@ class MapperAnnotationProcessor : BeanPostProcessor {
         val mapper: Mapper? = managedBeanClass.getAnnotation(Mapper::class.java)
 
         if (Objects.nonNull(mapper)) {
-            ReflectionUtils.doWithFields(managedBeanClass) {f ->
-                val fieldName = f.name
+            ReflectionUtils.doWithFields(managedBeanClass) {
+                val fieldName = it.name
                 if (fieldName!= "entityClass" && fieldName != "dtoClass") return@doWithFields
-                ReflectionUtils.makeAccessible(f)
+                ReflectionUtils.makeAccessible(it)
                 val targetClass: KClass<*> = if (fieldName == "entityClass") mapper!!.entity else mapper!!.dto
-                f.set(bean, targetClass)
+                it.set(bean, targetClass::class.java)
             }
         }
         return bean

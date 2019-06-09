@@ -2,6 +2,7 @@ package ru.xpendence.slimer.mapper
 
 import org.modelmapper.Converter
 import org.modelmapper.ModelMapper
+import org.springframework.beans.factory.annotation.Autowired
 import ru.xpendence.slimer.dto.AbstractDto
 import ru.xpendence.slimer.entity.AbstractEntity
 
@@ -11,13 +12,14 @@ import ru.xpendence.slimer.entity.AbstractEntity
  * Time: 21:11
  * e-mail: 2262288@gmail.com
  */
-open class AbstractMapper<E : AbstractEntity, D : AbstractDto>(
+open class AbstractMapper<E : AbstractEntity, D : AbstractDto> @Autowired constructor(
 
-        protected val mapper: ModelMapper,
-        private val entityClass: Class<E>?,
-        private val dtoClass: Class<D>?
+        protected val mapper: ModelMapper
 
 ) : EntityDtoMapper<E, D> {
+
+    private var entityClass: Class<E>? = null
+    private var dtoClass: Class<D>? = null
 
     override fun toEntity(dto: D?): E? = mapper.map(dto, entityClass)
 
