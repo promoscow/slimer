@@ -47,7 +47,7 @@ open class AbstractMapper<E : AbstractEntity, D : AbstractDto> @Autowired constr
         it.destination
     }
 
-    protected fun mapSpecificFields(source: D, destination: E) {}
+    override fun mapSpecificFields(source: E, destination: D) {}
 
-    protected fun mapSpecificFields(source: E, destination: D) {}
+    override fun mapSpecificFields(source: D, destination: E) {}
 }

@@ -19,7 +19,7 @@ import javax.persistence.*
 data class UserParams(
 
         @OneToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "member_id")
+        @JoinColumn(name = "user_id")
         var user: User? = null,
 
         @Column(name = "height")

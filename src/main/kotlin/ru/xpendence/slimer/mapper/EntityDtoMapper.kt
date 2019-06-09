@@ -18,4 +18,8 @@ interface EntityDtoMapper<E : AbstractEntity, D : AbstractDto> {
     fun toDto(entity: E?): D?
 
     fun toDto(entity: E?, dto: D?): D?
+
+    fun mapSpecificFields(source: E, destination: D)
+
+    fun mapSpecificFields(source: D, destination: E)
 }
