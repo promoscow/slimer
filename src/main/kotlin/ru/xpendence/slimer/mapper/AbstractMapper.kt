@@ -13,9 +13,7 @@ import ru.xpendence.slimer.entity.AbstractEntity
  * e-mail: 2262288@gmail.com
  */
 open class AbstractMapper<E : AbstractEntity, D : AbstractDto> @Autowired constructor(
-
         protected val mapper: ModelMapper
-
 ) : EntityDtoMapper<E, D> {
 
     private var entityClass: Class<E>? = null
@@ -26,16 +24,12 @@ open class AbstractMapper<E : AbstractEntity, D : AbstractDto> @Autowired constr
     override fun toDto(entity: E?): D? = mapper.map(entity, dtoClass)
 
     protected fun toEntityConverter(): Converter<D, E> = Converter {
-        val source: D = it.source
-        val destination: E = it.destination
-        mapSpecificFields(source, destination)
+        mapSpecificFields(it.source, it.destination)
         it.destination
     }
 
     protected fun toDtoConverter(): Converter<E, D> = Converter {
-        val source: E = it.source
-        val destination: D = it.destination
-        mapSpecificFields(source, destination)
+        mapSpecificFields(it.source, it.destination)
         it.destination
     }
 
