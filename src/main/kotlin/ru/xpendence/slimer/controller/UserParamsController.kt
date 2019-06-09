@@ -29,7 +29,9 @@ class UserParamsController @Autowired constructor(private val service: UserParam
     @GetMapping
     fun get(@RequestParam id: Long): ResponseEntity<UserParamsDto> = ResponseEntity.ok(service.get(id)!!)
 
+    @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<UserParamsDto>> = ResponseEntity.ok(service.getAll(pageable))
 
+    @DeleteMapping
     fun delete(@RequestParam id: Long): ResponseEntity<Boolean> = ResponseEntity.ok(service.delete(id))
 }
