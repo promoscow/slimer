@@ -6,10 +6,13 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.dto.AbstractDto
+import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.dto.UserParamsDto
+import ru.xpendence.slimer.entity.User
 import ru.xpendence.slimer.exceptions.DataAccessException
 import ru.xpendence.slimer.mapper.impl.UserParamsMapper
 import ru.xpendence.slimer.repository.UserParamsRepository
+import ru.xpendence.slimer.repository.UserRepository
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -52,4 +55,32 @@ class UserParamsService @Autowired constructor(
         repository.deleteById(id)
         return !repository.findById(id).isPresent
     }
+}
+
+@Service
+class UserService @Autowired constructor(
+        private val repository: UserRepository
+) : CommonService<UserDto> {
+
+    override fun save(dto: UserDto?): UserDto? {
+        repository.save(User())
+        return UserDto()
+    }
+
+    override fun update(dto: UserDto): UserDto? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun get(id: Long): UserDto? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getAll(pageable: Pageable): Page<UserDto> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun delete(id: Long): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
