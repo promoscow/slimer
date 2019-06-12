@@ -12,12 +12,13 @@ import ru.xpendence.slimer.entity.AbstractEntity
  * Time: 21:11
  * e-mail: 2262288@gmail.com
  */
-open class AbstractMapper<E : AbstractEntity, D : AbstractDto> @Autowired constructor(
-        protected val mapper: ModelMapper
-) : EntityDtoMapper<E, D> {
+open class AbstractMapper<E : AbstractEntity, D : AbstractDto> : EntityDtoMapper<E, D> {
 
     private var entityClass: Class<E>? = null
     private var dtoClass: Class<D>? = null
+
+    @field:Autowired
+    protected lateinit var mapper: ModelMapper
 
     override fun toEntity(dto: D?): E? = if (dto == null) null else mapper.map(dto, entityClass)
 

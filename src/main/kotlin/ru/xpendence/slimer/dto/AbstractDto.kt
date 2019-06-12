@@ -8,9 +8,9 @@ import java.time.LocalDateTime
  * Time: 20:14
  * e-mail: 2262288@gmail.com
  */
-open class AbstractDto(
+open class AbstractDto {
 
-        var id: Long? = null,
-        var created: LocalDateTime? = null,
-        var updated: LocalDateTime? = null
-)
+    open var id: Long? = null
+    open var created: LocalDateTime? = null
+    open var updated: LocalDateTime? = null
+}

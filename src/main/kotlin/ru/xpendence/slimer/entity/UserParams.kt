@@ -16,22 +16,21 @@ import javax.persistence.*
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
-data class UserParams(
+open class UserParams : AbstractEntity() {
 
-        @OneToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "user_id")
-        var user: User? = null,
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    open var user: User? = null
 
-        @Column(name = "height")
-        var height: Int? = null,
+    @Column(name = "height")
+    open var height: Int? = null
 
-        @Column(name = "weight")
-        var weight: Double? = null,
+    @Column(name = "weight")
+    open var weight: Double? = null
 
-        @Column(name = "gender")
-        var gender: Gender? = null,
+    @Column(name = "gender")
+    open var gender: Gender? = null
 
-        @Column(name = "birth_date")
-        var birthDate: LocalDateTime? = null
-
-) : AbstractEntity()
+    @Column(name = "birth_date")
+    open var birthDate: LocalDateTime? = null
+}

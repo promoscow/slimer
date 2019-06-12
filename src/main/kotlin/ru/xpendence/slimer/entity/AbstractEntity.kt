@@ -11,22 +11,20 @@ import javax.persistence.*
  * e-mail: 2262288@gmail.com
  */
 @MappedSuperclass
-open class AbstractEntity(
+open class AbstractEntity {
 
-        @Id
-        @GeneratedValue
-        var id: Long? = null,
+    @Id
+    @GeneratedValue
+    open var id: Long? = null
 
-        @Column(name = "created", updatable = false, nullable = false)
-        var created: LocalDateTime? = null,
+    @Column(name = "created", updatable = false, nullable = false)
+    open var created: LocalDateTime? = null
 
-        @Column(name = "updated", insertable = false)
-        var updated: LocalDateTime? = null,
+    @Column(name = "updated", insertable = false)
+    open var updated: LocalDateTime? = null
 
-        @Column(name = "active")
-        var active: Active = Active.ENABLED
-
-) {
+    @Column(name = "active")
+    open var active: Active = Active.ENABLED
 
     @PrePersist
     fun toCreate() {

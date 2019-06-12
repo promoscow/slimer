@@ -8,12 +8,11 @@ import java.time.LocalDateTime
  * Time: 20:18
  * e-mail: 2262288@gmail.com
  */
-data class UserParamsDto(
+open class UserParamsDto : AbstractDto() {
 
-        var user: Long? = null,
-        var height: Int? = null,
-        var weight: Double? = null,
-        var gender: String? = null,
-        var birthDate: LocalDateTime? = null
-
-) : AbstractDto()
+    open var user: Long? = null
+    open var height: Int? = null
+    open var weight: Double? = null
+    open var gender: String? = null
+    open var birthDate: LocalDateTime? = null
+}

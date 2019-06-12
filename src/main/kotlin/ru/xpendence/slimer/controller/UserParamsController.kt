@@ -15,7 +15,7 @@ import ru.xpendence.slimer.service.UserParamsService
  * e-mail: 2262288@gmail.com
  */
 @RestController
-@RequestMapping(value = ["/params"])
+@RequestMapping("/params")
 class UserParamsController @Autowired constructor(private val service: UserParamsService) {
 
     @PostMapping

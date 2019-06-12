@@ -14,9 +14,9 @@ import javax.persistence.*
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
-class User(
+open class User(
 
         @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "user")
-        var params: UserParams? = null
+        open var params: UserParams? = null
 
 ) : AbstractEntity()

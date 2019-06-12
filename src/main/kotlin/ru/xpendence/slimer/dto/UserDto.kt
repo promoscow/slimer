@@ -6,9 +6,7 @@ package ru.xpendence.slimer.dto
  * Time: 20:11
  * e-mail: 2262288@gmail.com
  */
-class UserDto(
+open class UserDto : AbstractDto() {
 
-        var params: UserParamsDto? = null
-
-) : AbstractDto() {
+    open var params: UserParamsDto? = null
 }
