@@ -13,8 +13,8 @@ import javax.persistence.*
  * e-mail: 2262288@gmail.com
  */
 @Entity
-@Table(name = "users")
-@SQLDelete(sql = "UPDATE users SET active = 0 WHERE id = ?")
+@Table(name = "user_params")
+@SQLDelete(sql = "UPDATE user_params SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class UserParams : AbstractEntity() {
 

@@ -27,7 +27,7 @@ class UserParamsController @Autowired constructor(private val service: UserParam
 
     //todo разобраться с нуллабилити. По-моему, подход довольно зыбкий
     @GetMapping
-    fun get(@RequestParam id: Long): ResponseEntity<UserParamsDto> = ResponseEntity.ok(service.get(id)!!)
+    fun get(@RequestParam("id") id: Long): ResponseEntity<UserParamsDto> = ResponseEntity.ok(service.get(id)!!)
 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<UserParamsDto>> = ResponseEntity.ok(service.getAll(pageable))

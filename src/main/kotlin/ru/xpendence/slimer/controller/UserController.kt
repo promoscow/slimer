@@ -1,11 +1,10 @@
 package ru.xpendence.slimer.controller
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import ru.xpendence.slimer.dto.UserDto
+import ru.xpendence.slimer.service.UserService
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -15,9 +14,11 @@ import ru.xpendence.slimer.dto.UserDto
  */
 @RestController
 @RequestMapping("/user")
-class UserController {
-
+class UserController @Autowired constructor(private val service: UserService) {
 
     @PostMapping
-    fun create(@RequestBody dto: UserDto): ResponseEntity<UserDto> = ResponseEntity.ok(UserDto())
+    fun create(@RequestBody dto: UserDto?): ResponseEntity<UserDto?> = ResponseEntity.ok(service.save(dto)!!)
+
+    @GetMapping
+    fun get(@RequestParam("id") id: Long): ResponseEntity<UserDto?> = ResponseEntity.ok(service.get(id)!!)
 }

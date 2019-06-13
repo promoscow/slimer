@@ -31,14 +31,11 @@ class UserParamsMapper : AbstractMapper<UserParams, UserParamsDto>() {
                     m.skip { destination: UserParamsDto?, source: UserParams? ->
                         destination?.user = source?.user?.id
                     }
-//                    m.skip { destination: UserParamsDto?, source: UserParams? ->
-//                        destination?.user = source?.user?.id
-//                    }
                 }
                 .postConverter = toDtoConverter()
         mapper.createTypeMap(UserParamsDto::class.javaObjectType, UserParams::class.javaObjectType)
                 .addMappings { m ->
-                    m.skip { destination: UserParams?, source: UserParamsDto? ->
+                    m.skip { destination: UserParams?, _: UserParamsDto? ->
                         destination?.user = User()
                     }
                 }
@@ -46,7 +43,6 @@ class UserParamsMapper : AbstractMapper<UserParams, UserParamsDto>() {
     }
 
     override fun mapSpecificFields(source: UserParams, destination: UserParamsDto) {
-        println()
         if (source.user != null) destination.user = source.user!!.id
     }
 
