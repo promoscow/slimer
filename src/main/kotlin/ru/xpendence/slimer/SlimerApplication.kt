@@ -15,7 +15,8 @@ class SlimerApplication {
         mapper.configuration
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true).fieldAccessLevel = Configuration.AccessLevel.PRIVATE
+                .setSkipNullEnabled(true)
+                .fieldAccessLevel = Configuration.AccessLevel.PRIVATE
         return mapper
     }
 }
