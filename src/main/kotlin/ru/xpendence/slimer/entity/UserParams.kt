@@ -19,7 +19,7 @@ import javax.persistence.*
 open class UserParams : AbstractEntity() {
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
     open var user: User? = null
 
     @Column(name = "height")
