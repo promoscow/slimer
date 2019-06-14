@@ -1,5 +1,6 @@
 package ru.xpendence.slimer.dto
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 /**
@@ -8,7 +9,7 @@ import java.time.LocalDateTime
  * Time: 20:14
  * e-mail: 2262288@gmail.com
  */
-open class AbstractDto {
+open class AbstractDto : Serializable {
 
     open var id: Long? = null
     open var created: LocalDateTime? = null

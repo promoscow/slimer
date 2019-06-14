@@ -1,6 +1,7 @@
 package ru.xpendence.slimer.entity
 
 import ru.xpendence.slimer.base.Active
+import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -11,7 +12,7 @@ import javax.persistence.*
  * e-mail: 2262288@gmail.com
  */
 @MappedSuperclass
-open class AbstractEntity {
+open class AbstractEntity : Serializable {
 
     @Id
     @GeneratedValue
