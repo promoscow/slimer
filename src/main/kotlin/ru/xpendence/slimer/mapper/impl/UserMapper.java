@@ -6,8 +6,6 @@ import ru.xpendence.slimer.entity.User;
 import ru.xpendence.slimer.mapper.AbstractMapper;
 import ru.xpendence.slimer.mapper.Mapper;
 
-import javax.annotation.PostConstruct;
-
 /**
  * Author: Vyacheslav Chernyshov
  * Date: 2019-06-13
@@ -17,28 +15,28 @@ import javax.annotation.PostConstruct;
 @Component
 @Mapper(entity = User.class, dto = UserDto.class)
 public class UserMapper extends AbstractMapper<User, UserDto> {
-
-    private final UserParamsMapper userParamsMapper;
-
-    public UserMapper(UserParamsMapper userParamsMapper) {
-        this.userParamsMapper = userParamsMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        mapper.createTypeMap(User.class, UserDto.class)
-                .addMappings(m -> m.skip(UserDto::setParams)).setPostConverter(toDtoConverter());
-        mapper.createTypeMap(UserDto.class, User.class)
-                .addMappings(m -> m.skip(User::setParams)).setPostConverter(toEntityConverter());
-    }
-
-    @Override
-    protected void mapSpecificFields(User source, UserDto destination) {
-        whenNotNull(source.getParams(), userParamsMapper::toDto);
-    }
-
-    @Override
-    protected void mapSpecificFields(UserDto source, User destination) {
-        whenNotNull(source.getParams(), userParamsMapper::toEntity);
-    }
+//
+//    private final UserParamsMapper userParamsMapper;
+//
+//    public UserMapper(UserParamsMapper userParamsMapper) {
+//        this.userParamsMapper = userParamsMapper;
+//    }
+//
+//    @PostConstruct
+//    public void init() {
+//        mapper.createTypeMap(User.class, UserDto.class)
+//                .addMappings(m -> m.skip(UserDto::setParams)).setPostConverter(toDtoConverter());
+//        mapper.createTypeMap(UserDto.class, User.class)
+//                .addMappings(m -> m.skip(User::setParams)).setPostConverter(toEntityConverter());
+//    }
+//
+//    @Override
+//    protected void mapSpecificFields(User source, UserDto destination) {
+//        whenNotNull(source.getParams(), userParamsMapper::toDto);
+//    }
+//
+//    @Override
+//    protected void mapSpecificFields(UserDto source, User destination) {
+//        whenNotNull(source.getParams(), userParamsMapper::toEntity);
+//    }
 }
