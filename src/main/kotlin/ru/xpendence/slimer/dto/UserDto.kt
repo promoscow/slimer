@@ -1,5 +1,7 @@
 package ru.xpendence.slimer.dto
 
+import java.time.LocalDateTime
+
 /**
  * Author: Vyacheslav Chernyshov
  * Date: 2019-06-08
@@ -8,5 +10,9 @@ package ru.xpendence.slimer.dto
  */
 open class UserDto : AbstractDto() {
 
-    open var params: UserParamsDto? = null
+    open var height: Int? = null
+    open var weight: Double? = null
+    open var gender: String? = null
+    open var birthDate: LocalDateTime? = null
+    open val contacts: List<ContactDto> = ArrayList()
 }

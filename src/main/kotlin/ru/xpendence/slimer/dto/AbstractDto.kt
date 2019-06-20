@@ -1,5 +1,6 @@
 package ru.xpendence.slimer.dto
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime
  * Time: 20:14
  * e-mail: 2262288@gmail.com
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 open class AbstractDto : Serializable {
 
     open var id: Long? = null
