@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Repository
 import ru.xpendence.slimer.entity.AbstractEntity
+import ru.xpendence.slimer.entity.Contact
 import ru.xpendence.slimer.entity.User
-import ru.xpendence.slimer.entity.UserParams
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -20,4 +20,4 @@ interface CommonRepository<E : AbstractEntity> : JpaRepository<E, Long>
 interface UserRepository : CommonRepository<User>
 
 @Repository
-interface UserParamsRepository : CommonRepository<UserParams>
+interface ContactRepository: CommonRepository<Contact>
