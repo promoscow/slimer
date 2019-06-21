@@ -47,8 +47,8 @@ open class AbstractService<
 
     override fun save(dto: D?): D? = mapper!!.toDto(repository!!.save(mapper.toEntity(dto)!!))
 
-    override fun update(dto: D): D? {
-        val userParams = repository!!.findById(dto.id!!)
+    override fun update(dto: D?): D? {
+        val userParams = repository!!.findById(dto!!.id!!)
                 .orElseThrow { DataAccessException("Entity with id ${dto.id} not found.") }
         return mapper!!.toDto(repository.save(mapper.toEntity(dto, userParams)!!))
     }
@@ -69,7 +69,7 @@ interface CommonService<D : AbstractDto> {
     fun save(dto: D?): D?
 
     @Transactional
-    fun update(dto: D): D?
+    fun update(dto: D?): D?
 
     @Transactional
     fun get(id: Long): D?

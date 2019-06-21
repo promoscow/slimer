@@ -3,23 +3,15 @@ package ru.xpendence.slimer.controller
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
-import ru.xpendence.slimer.annotations.ControllerImpl
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import ru.xpendence.slimer.dto.AbstractDto
-import ru.xpendence.slimer.dto.ContactDto
-import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.entity.AbstractEntity
-import ru.xpendence.slimer.entity.Contact
-import ru.xpendence.slimer.entity.User
 import ru.xpendence.slimer.mapper.AbstractMapper
-import ru.xpendence.slimer.mapper.impl.ContactMapper
-import ru.xpendence.slimer.mapper.impl.UserMapper
 import ru.xpendence.slimer.repository.CommonRepository
-import ru.xpendence.slimer.repository.ContactRepository
-import ru.xpendence.slimer.repository.UserRepository
 import ru.xpendence.slimer.service.AbstractService
-import ru.xpendence.slimer.service.ContactServiceImpl
-import ru.xpendence.slimer.service.UserServiceImpl
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -27,15 +19,15 @@ import ru.xpendence.slimer.service.UserServiceImpl
  * Time: 14:33
  * e-mail: v.chernyshov@pflb.ru
  */
-@RestController
-@RequestMapping("/contact")
-@ControllerImpl
-class ContactController : AbstractController<Contact, ContactDto, ContactMapper, ContactRepository, ContactServiceImpl>()
-
-@RestController
-@RequestMapping("/user")
-@ControllerImpl
-class UserController : AbstractController<User, UserDto, UserMapper, UserRepository, UserServiceImpl>()
+//@RestController
+//@RequestMapping("/contact")
+//@ControllerImpl
+//class ContactController : AbstractController<Contact, ContactDto, ContactMapper, ContactRepository, ContactServiceImpl>()
+//
+//@RestController
+//@RequestMapping("/user")
+//@ControllerImpl
+//class UserController : AbstractController<User, UserDto, UserMapper, UserRepository, UserServiceImpl>()
 
 open class AbstractController<
         E : AbstractEntity,
