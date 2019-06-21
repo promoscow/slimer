@@ -1,4 +1,4 @@
-package ru.xpendence.slimer.mapper;
+package ru.xpendence.slimer.annotations;
 
 import java.lang.annotation.*;
 

@@ -1,10 +1,10 @@
 package ru.xpendence.slimer.mapper.impl;
 
 import org.springframework.stereotype.Component;
+import ru.xpendence.slimer.annotations.Mapper;
 import ru.xpendence.slimer.dto.ContactDto;
 import ru.xpendence.slimer.entity.Contact;
 import ru.xpendence.slimer.mapper.AbstractMapper;
-import ru.xpendence.slimer.mapper.Mapper;
 import ru.xpendence.slimer.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
