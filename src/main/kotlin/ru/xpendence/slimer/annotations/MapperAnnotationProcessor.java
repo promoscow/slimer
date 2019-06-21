@@ -1,4 +1,4 @@
-package ru.xpendence.slimer.mapper;
+package ru.xpendence.slimer.annotations;
 
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.ResolvableType;

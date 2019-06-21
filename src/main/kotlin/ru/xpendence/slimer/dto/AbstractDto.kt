@@ -10,7 +10,7 @@ import java.time.LocalDateTime
  * Time: 20:14
  * e-mail: 2262288@gmail.com
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 open class AbstractDto : Serializable {
 
     open var id: Long? = null
