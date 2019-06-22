@@ -14,7 +14,7 @@ import javax.persistence.*
 @Table(name = "contacts")
 @SQLDelete(sql = "UPDATE contacts SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
-open class Contact: AbstractEntity() {
+open class Contact : AbstractEntity() {
 
     @Column(name = "phone")
     open var phone: String? = null
