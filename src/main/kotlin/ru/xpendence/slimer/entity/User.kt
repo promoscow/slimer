@@ -3,7 +3,7 @@ package ru.xpendence.slimer.entity
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import ru.xpendence.slimer.base.Gender
-import java.time.LocalDateTime
+import java.time.LocalDate
 import javax.persistence.*
 
 /**
@@ -28,9 +28,15 @@ open class User(
         open var gender: Gender? = null,
 
         @Column(name = "birth_date")
-        open var birthDate: LocalDateTime? = null,
+        open var birthDate: LocalDate? = null,
 
         @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], mappedBy = "user")
-        open var contacts: MutableList<Contact> = ArrayList()
+        open var contacts: MutableList<Contact> = ArrayList(),
+
+        @Column(name = "dci", nullable = false)
+        open var dailyCaloriesIndex: Double? = null,
+
+        @Column(name = "pai", nullable = false)
+        open var physicalActivityIndex: Double? = null
 
 ) : AbstractEntity()
