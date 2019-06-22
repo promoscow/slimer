@@ -1,6 +1,6 @@
 package ru.xpendence.slimer.dto
 
-import ru.xpendence.slimer.base.Gender
+import ru.xpendence.slimer.util.calculateDci
 import java.time.LocalDate
 import javax.validation.constraints.Null
 
@@ -25,15 +25,3 @@ open class UserDto : AbstractDto() {
 
     open var physicalActivityIndex: Double? = null
 }
-
-fun UserDto.calculateDci(): Int =
-        if (gender == Gender.MALE.name) {
-            (5 + (10 * weight!!) + (6.25 * height!!) - (5 * calculateAge())).toInt()
-        } else {
-            ((10 * weight!!) + (6.25 * height!!) - (5 * calculateAge()) - 161).toInt()
-        }
-
-fun UserDto.calculateAge(): Int = (
-        LocalDate.now().year - birthDate!!.year
-                + if (LocalDate.now().dayOfYear > birthDate!!.dayOfYear) 1 else 0
-        )

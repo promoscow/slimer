@@ -1,3 +1,4 @@
+@file: JvmName("PAI")
 package ru.xpendence.slimer.base
 
 /**
