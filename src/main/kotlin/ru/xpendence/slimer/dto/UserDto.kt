@@ -2,6 +2,7 @@ package ru.xpendence.slimer.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Null
 
 /**
@@ -12,6 +13,7 @@ import javax.validation.constraints.Null
  */
 open class UserDto : AbstractDto() {
 
+    @NotNull(groups = [])
     open var height: Int? = null
     open var weight: Double? = null
 

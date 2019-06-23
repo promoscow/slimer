@@ -33,6 +33,4 @@ open class ContactDto: AbstractDto() {
         result = 31 * result + (user?.hashCode() ?: 0)
         return result
     }
-
-
 }
