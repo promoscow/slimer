@@ -8,6 +8,7 @@ import ru.xpendence.slimer.entity.User;
 import ru.xpendence.slimer.mapper.AbstractMapper;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -39,6 +40,14 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
 
     @Override
     protected void mapSpecificFields(UserDto source, User destination) {
-//        whenNotNull(source.getPhysicalActivityIndex(), i -> destination.setDailyCaloriesIndex(PAI.getIndexes().values()));
+        whenNotNull(source.getPhysicalActivityIndex(),
+                i -> destination.setPhysicalActivityIndex(
+                        PAI.getIndexes().entrySet()
+                                .stream()
+                                .filter(e -> e.getValue().containsKey(destination.getGender())
+                                        && e.getValue().containsValue(i))
+                                .findFirst().map(Map.Entry::getKey).orElse(null)
+                )
+        );
     }
 }
