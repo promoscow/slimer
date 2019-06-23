@@ -2,6 +2,7 @@ package ru.xpendence.slimer.mapper.impl;
 
 import org.springframework.stereotype.Component;
 import ru.xpendence.slimer.annotations.Mapper;
+import ru.xpendence.slimer.base.BmiCategory;
 import ru.xpendence.slimer.base.PAI;
 import ru.xpendence.slimer.dto.UserDto;
 import ru.xpendence.slimer.entity.User;
@@ -23,9 +24,15 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
     @PostConstruct
     public void init() {
         mapper.createTypeMap(User.class, UserDto.class)
-                .addMappings(m -> m.skip(UserDto::setPhysicalActivityIndex)).setPostConverter(toDtoConverter());
+                .addMappings(m -> {
+                    m.skip(UserDto::setPhysicalActivityIndex);
+                    m.skip(UserDto::setBmiCategory);
+                }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(UserDto.class, User.class)
-                .addMappings(m -> m.skip(User::setPhysicalActivityIndex)).setPostConverter(toEntityConverter());
+                .addMappings(m -> {
+                    m.skip(User::setPhysicalActivityIndex);
+                    m.skip(User::setBmiCategory);
+                }).setPostConverter(toEntityConverter());
     }
 
     @Override
@@ -36,6 +43,7 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
                         PAI.getIndexes().get(source.getPhysicalActivityIndex()).get(source.getGender())
                 )
         );
+        whenNotNull(source.getBmiCategory(), c -> destination.setBmiCategory(c.name()));
     }
 
     @Override
@@ -49,5 +57,6 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
                                 .findFirst().map(Map.Entry::getKey).orElse(null)
                 )
         );
+        whenNotNull(source.getBmiCategory(), c -> destination.setBmiCategory(BmiCategory.valueOf(c)));
     }
 }

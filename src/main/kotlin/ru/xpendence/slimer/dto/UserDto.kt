@@ -33,4 +33,6 @@ open class UserDto : AbstractDto() {
 
     @Null
     open var bodyMassIndex: Double? = null
+
+    open var bmiCategory: String? = null
 }

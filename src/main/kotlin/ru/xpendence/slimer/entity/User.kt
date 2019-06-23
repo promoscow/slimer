@@ -2,6 +2,7 @@ package ru.xpendence.slimer.entity
 
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
+import ru.xpendence.slimer.base.BmiCategory
 import ru.xpendence.slimer.base.Gender
 import ru.xpendence.slimer.base.PhysicalActivityIndex
 import java.time.LocalDate
@@ -46,4 +47,7 @@ open class User : AbstractEntity() {
 
     @Column(name = "bmi")
     open var bodyMassIndex: Double? = null
+
+    @Column(name = "bmi_category")
+    open var bmiCategory: BmiCategory? = null
 }

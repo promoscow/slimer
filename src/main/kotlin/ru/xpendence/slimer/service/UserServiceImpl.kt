@@ -9,6 +9,7 @@ import ru.xpendence.slimer.repository.UserRepository
 import ru.xpendence.slimer.util.calculateAge
 import ru.xpendence.slimer.util.calculateBmi
 import ru.xpendence.slimer.util.calculateDci
+import ru.xpendence.slimer.util.defineBmiCategory
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -28,5 +29,6 @@ class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepositor
         dto!!.age = dto.calculateAge()
         dto.dailyCaloriesIndex = dto.calculateDci()
         dto.bodyMassIndex = dto.calculateBmi()
+        dto.bmiCategory = dto.defineBmiCategory()
     }
 }
