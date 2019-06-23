@@ -3,6 +3,7 @@ package ru.xpendence.slimer.util
 import ru.xpendence.slimer.base.Gender
 import ru.xpendence.slimer.dto.UserDto
 import java.time.LocalDate
+import kotlin.math.pow
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -12,12 +13,12 @@ import java.time.LocalDate
  */
 fun UserDto.calculateDci(): Int =
         if (gender == Gender.MALE.name) {
-            (5 + (10 * weight!!) + (6.25 * height!!) - (5 * calculateAge())).toInt()
+            (5 + (10 * weight!!) + (6.25 * height!!) - (5 * age!!)).toInt()
         } else {
-            ((10 * weight!!) + (6.25 * height!!) - (5 * calculateAge()) - 161).toInt()
+            ((10 * weight!!) + (6.25 * height!!) - (5 * age!!) - 161).toInt()
         }
 
-fun UserDto.calculateAge(): Int = (
-        LocalDate.now().year - birthDate!!.year
-                + if (LocalDate.now().dayOfYear > birthDate!!.dayOfYear) 1 else 0
-        )
+fun UserDto.calculateAge(): Int =
+        (LocalDate.now().year - birthDate!!.year).plus(if (LocalDate.now().dayOfYear >= birthDate!!.dayOfYear) 0 else -1)
+
+fun UserDto.calculateBmi(): Double = weight!!.div((height!!.toDouble() / 100).pow(2)).round(2)

@@ -6,6 +6,9 @@ import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.entity.User
 import ru.xpendence.slimer.mapper.impl.UserMapper
 import ru.xpendence.slimer.repository.UserRepository
+import ru.xpendence.slimer.util.calculateAge
+import ru.xpendence.slimer.util.calculateBmi
+import ru.xpendence.slimer.util.calculateDci
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -22,6 +25,8 @@ class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepositor
     }
 
     override fun calculate(dto: UserDto?) {
-
+        dto!!.age = dto.calculateAge()
+        dto.dailyCaloriesIndex = dto.calculateDci()
+        dto.bodyMassIndex = dto.calculateBmi()
     }
 }

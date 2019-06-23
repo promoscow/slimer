@@ -28,7 +28,7 @@ abstract class AbstractService<
 
     override fun save(dto: D?): D? {
         validate(dto)
-
+        calculate(dto)
         return mapper!!.toDto(repository!!.save(mapper.toEntity(dto)!!))
     }
 

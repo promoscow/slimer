@@ -1,6 +1,6 @@
 package ru.xpendence.slimer.dto
 
-import ru.xpendence.slimer.util.calculateDci
+import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate
 import javax.validation.constraints.Null
 
@@ -14,14 +14,23 @@ open class UserDto : AbstractDto() {
 
     open var height: Int? = null
     open var weight: Double? = null
+
+    @Null
+    open var age: Int? = null
+
     open var gender: String? = null
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     open var birthDate: LocalDate? = null
 
     @Null
     open val contacts: List<ContactDto> = ArrayList()
 
     @Null
-    open var dailyCaloriesIndex: Int = calculateDci()
+    open var dailyCaloriesIndex: Int? = null
 
     open var physicalActivityIndex: Double? = null
+
+    @Null
+    open var bodyMassIndex: Double? = null
 }

@@ -25,6 +25,9 @@ open class User : AbstractEntity() {
     @Column(name = "weight")
     open var weight: Double? = null
 
+    @Column(name = "age")
+    open var age: Int? = null
+
     @Column(name = "gender")
     open var gender: Gender? = null
 
@@ -40,4 +43,7 @@ open class User : AbstractEntity() {
     @Enumerated(EnumType.STRING)
     @Column(name = "pai", nullable = false)
     open var physicalActivityIndex: PhysicalActivityIndex? = null
+
+    @Column(name = "bmi")
+    open var bodyMassIndex: Double? = null
 }
