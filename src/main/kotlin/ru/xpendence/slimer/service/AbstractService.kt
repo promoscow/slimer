@@ -8,6 +8,7 @@ import ru.xpendence.slimer.entity.AbstractEntity
 import ru.xpendence.slimer.exceptions.DataAccessException
 import ru.xpendence.slimer.mapper.AbstractMapper
 import ru.xpendence.slimer.repository.CommonRepository
+import ru.xpendence.slimer.util.logger
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -23,10 +24,13 @@ abstract class AbstractService<
         >
     : CrudService<D> {
 
+    open val log = logger<AbstractService<*, *, *, *>>()
+
     private val mapper: M? = null
     private val repository: R? = null
 
     override fun save(dto: D?): D? {
+        log.info("---> dto ${dto!!.hashCode()} has arrived to save: $dto")
         validate(dto)
         calculate(dto)
         return mapper!!.toDto(repository!!.save(mapper.toEntity(dto)!!))
