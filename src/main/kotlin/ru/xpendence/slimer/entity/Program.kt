@@ -2,8 +2,8 @@ package ru.xpendence.slimer.entity
 
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
-import javax.persistence.Entity
-import javax.persistence.Table
+import ru.xpendence.slimer.base.ProgramType
+import javax.persistence.*
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -15,7 +15,19 @@ import javax.persistence.Table
 @Table(name = "programs")
 @SQLDelete(sql = "UPDATE programs SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
-class Program : AbstractEntity() {
+open class Program : AbstractEntity() {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    open var user: User? = null
 
+    @Column(name = "is_finished")
+    open var finished: Boolean? = null
+
+    @Column(name = "goal_weight")
+    open var goalWeight: Double? = null
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "program_type")
+    open var programType: ProgramType? = null
 }

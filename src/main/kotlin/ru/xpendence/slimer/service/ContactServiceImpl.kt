@@ -15,9 +15,4 @@ import ru.xpendence.slimer.repository.ContactRepository
  */
 @Service
 @ServiceImpl
-class ContactServiceImpl : AbstractService<Contact, ContactDto, ContactMapper, ContactRepository>() {
-
-    override fun validate(dto: ContactDto?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-}
+class ContactServiceImpl : AbstractService<Contact, ContactDto, ContactMapper, ContactRepository>()

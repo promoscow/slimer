@@ -50,4 +50,7 @@ open class User : AbstractEntity() {
 
     @Column(name = "bmi_category")
     open var bmiCategory: BmiCategory? = null
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], mappedBy = "user")
+    open var programs: MutableList<Program> = ArrayList()
 }

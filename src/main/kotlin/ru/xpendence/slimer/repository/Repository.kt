@@ -5,6 +5,7 @@ import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Repository
 import ru.xpendence.slimer.entity.AbstractEntity
 import ru.xpendence.slimer.entity.Contact
+import ru.xpendence.slimer.entity.Program
 import ru.xpendence.slimer.entity.User
 
 /**
@@ -20,4 +21,7 @@ interface CommonRepository<E : AbstractEntity> : JpaRepository<E, Long>
 interface UserRepository : CommonRepository<User>
 
 @Repository
-interface ContactRepository: CommonRepository<Contact>
+interface ContactRepository : CommonRepository<Contact>
+
+@Repository
+interface ProgramRepository : CommonRepository<Program>
