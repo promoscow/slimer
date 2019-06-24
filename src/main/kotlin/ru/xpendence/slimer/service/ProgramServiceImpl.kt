@@ -18,16 +18,16 @@ import ru.xpendence.slimer.util.calculate
  */
 @Service
 @ServiceImpl
-class ProgramService @Autowired constructor(
+class ProgramServiceImpl @Autowired constructor(
         private val userService: UserServiceImpl
 ) : AbstractService<Program, ProgramDto, ProgramMapper, ProgramRepository>() {
 
     fun calculate(id: Long, goalWeight: Double): List<ProgramDto> {
         val userDto = userService.get(id)
         return listOf(
-                ProgramDto().calculate(userDto!!, goalWeight, ProgramType.COMFORT),
-                ProgramDto().calculate(userDto, goalWeight, ProgramType.HARD),
-                ProgramDto().calculate(userDto, goalWeight, ProgramType.BRUTAL)
+                calculate(userDto!!, goalWeight, ProgramType.COMFORT),
+                calculate(userDto, goalWeight, ProgramType.HARD),
+                calculate(userDto, goalWeight, ProgramType.BRUTAL)
         )
     }
 }

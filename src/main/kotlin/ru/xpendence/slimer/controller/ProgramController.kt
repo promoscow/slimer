@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.xpendence.slimer.dto.ProgramDto
-import ru.xpendence.slimer.service.ProgramService
+import ru.xpendence.slimer.service.ProgramServiceImpl
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -16,7 +16,7 @@ import ru.xpendence.slimer.service.ProgramService
  */
 @RestController
 @RequestMapping("/program")
-class ProgramController @Autowired constructor(val service: ProgramService) {
+class ProgramController @Autowired constructor(val service: ProgramServiceImpl) {
 
     @PostMapping
     fun create(@RequestBody dto: ProgramDto?): ResponseEntity<ProgramDto?> = ResponseEntity.ok(service.save(dto)!!)

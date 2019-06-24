@@ -14,9 +14,9 @@ import kotlin.math.pow
  */
 fun UserDto.calculateDci(): Int =
         if (gender == Gender.MALE.name) {
-            (5 + (10 * weight!!) + (6.25 * height!!) - (5 * age!!)).toInt()
+            (5 + (10 * weight!!) + (6.25 * height!!) - (5 * age!!)).times(physicalActivityIndex!!).toInt()
         } else {
-            ((10 * weight!!) + (6.25 * height!!) - (5 * age!!) - 161).toInt()
+            ((10 * weight!!) + (6.25 * height!!) - (5 * age!!) - 161).times(physicalActivityIndex!!).toInt()
         }
 
 fun UserDto.calculateAge(): Int =

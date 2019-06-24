@@ -8,7 +8,7 @@ package ru.xpendence.slimer.base
  */
 enum class ProgramType(val percentage: Double) {
     NONE(1.0),
-    COMFORT(0.95),
-    HARD(0.9),
-    BRUTAL(0.85)
+    COMFORT(0.85),
+    HARD(0.7),
+    BRUTAL(0.55)
 }

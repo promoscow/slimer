@@ -39,6 +39,9 @@ open class UserDto : AbstractDto() {
     open var bmiCategory: String? = null
 
     open var programs: MutableList<ProgramDto> = ArrayList()
+
+
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

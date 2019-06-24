@@ -35,6 +35,7 @@ open class User : AbstractEntity() {
     @Column(name = "birth_date")
     open var birthDate: LocalDate? = null
 
+    @OrderColumn
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], mappedBy = "user")
     open var contacts: MutableList<Contact> = ArrayList()
 
@@ -51,6 +52,7 @@ open class User : AbstractEntity() {
     @Column(name = "bmi_category")
     open var bmiCategory: BmiCategory? = null
 
+    @OrderColumn
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], mappedBy = "user")
     open var programs: MutableList<Program> = ArrayList()
 }

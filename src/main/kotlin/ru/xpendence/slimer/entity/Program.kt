@@ -3,6 +3,7 @@ package ru.xpendence.slimer.entity
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import ru.xpendence.slimer.base.ProgramType
+import java.time.LocalDate
 import javax.persistence.*
 
 /**
@@ -33,4 +34,7 @@ open class Program : AbstractEntity() {
     @Enumerated(EnumType.STRING)
     @Column(name = "program_type")
     open var programType: ProgramType? = null
+
+    @Column(name = "estimated_finish")
+    open var estimatedFinishDate: LocalDate? = null
 }
