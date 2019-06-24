@@ -10,6 +10,7 @@ open class ProgramDto : AbstractDto() {
 
     open var user: Long? = null
     open var finished: Boolean? = null
+    open var startWeight: Double? = null
     open var goalWeight: Double? = null
     open var programType: String? = null
 }

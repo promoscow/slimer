@@ -24,6 +24,9 @@ open class Program : AbstractEntity() {
     @Column(name = "is_finished")
     open var finished: Boolean? = null
 
+    @Column(name = "start_weight")
+    open var startWeight: Double? = null
+
     @Column(name = "goal_weight")
     open var goalWeight: Double? = null
 
