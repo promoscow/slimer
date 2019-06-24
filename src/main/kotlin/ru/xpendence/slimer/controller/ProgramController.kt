@@ -25,7 +25,12 @@ class ProgramController @Autowired constructor(val service: ProgramService) {
     fun update(@RequestBody dto: ProgramDto?): ResponseEntity<ProgramDto?> = ResponseEntity.ok(service.update(dto)!!)
 
     @GetMapping
-    fun get(@RequestParam("id") id: Long): ResponseEntity<ProgramDto?> = ResponseEntity.ok(service.get(id)!!)
+    fun get(@RequestParam(value = "id") id: Long): ResponseEntity<ProgramDto?> = ResponseEntity.ok(service.get(id)!!)
+
+    @GetMapping("/calculate")
+    fun calculate(@RequestParam(value = "id") id: Long,
+                  @RequestParam(value = "goal") goalWeight: Double): ResponseEntity<List<ProgramDto>> =
+            ResponseEntity.ok(service.calculate(id, goalWeight))
 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<ProgramDto>> = ResponseEntity.ok(service.getAll(pageable))

@@ -26,8 +26,8 @@ abstract class AbstractService<
 
     open val log = logger<AbstractService<*, *, *, *>>()
 
-    private val mapper: M? = null
-    private val repository: R? = null
+    protected val mapper: M? = null
+    protected val repository: R? = null
 
     override fun save(dto: D?): D? {
         log.info("---> dto ${dto!!.hashCode()} has arrived to save: $dto")
