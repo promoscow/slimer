@@ -23,7 +23,7 @@ class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepositor
 
     }
 
-    override fun calculate(dto: UserDto?) {
+    override fun preExecution(dto: UserDto?) {
         dto!!.age = dto.calculateAge()
         log.info("age calculated: ${dto.age} for dto ${dto.hashCode()}")
         dto.dailyCaloriesIndex = dto.calculateDci()

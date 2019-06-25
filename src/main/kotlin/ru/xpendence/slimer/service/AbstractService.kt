@@ -32,7 +32,7 @@ abstract class AbstractService<
     override fun save(dto: D?): D? {
         log.info("---> dto ${dto!!.hashCode()} has arrived to save: $dto")
         validate(dto)
-        calculate(dto)
+        preExecution(dto)
         return mapper!!.toDto(repository!!.save(mapper.toEntity(dto)!!))
     }
 
@@ -53,5 +53,5 @@ abstract class AbstractService<
 
     open fun validate(dto: D?) {}
 
-    open fun calculate(dto: D?) {}
+    open fun preExecution(dto: D?) {}
 }

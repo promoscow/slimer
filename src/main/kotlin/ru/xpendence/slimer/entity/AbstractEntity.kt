@@ -15,7 +15,7 @@ import javax.persistence.*
 open class AbstractEntity : Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     open var id: Long? = null
 
     @Column(name = "created", updatable = false, nullable = false)

@@ -22,12 +22,7 @@ fun Double.round(decimals: Int): Double {
     return round(this.times(multiplier)).div(multiplier)
 }
 
-fun calculate(dto: UserDto, goalWeight: Double, programType: ProgramType): ProgramDto {
-
-    println("|| Start weight: ${dto.weight}, goal weight: $goalWeight")
-    println("|| Program type: ${programType.name}, percentage: ${programType.percentage}")
-    println("|| Daily calories: ${dto.dailyCaloriesIndex}")
-    println()
+fun ProgramDto.calculate(dto: UserDto, goalWeight: Double, programType: ProgramType): ProgramDto {
 
     var currentWeight = dto.weight!!
     var expectedDci: Int
@@ -40,13 +35,9 @@ fun calculate(dto: UserDto, goalWeight: Double, programType: ProgramType): Progr
         temporalUserDto.dailyCaloriesIndex = temporalUserDto.calculateDci()
         expectedDci = temporalUserDto.dailyCaloriesIndex!!.times(programType.percentage).toInt()
 
-        print("expected DCI: $expectedDci. ")
-
         val differenceCalories = temporalUserDto.dailyCaloriesIndex!!.minus(expectedDci)
         currentWeight -= differenceCalories.div(caloriesInFat).div(1000)
         temporalUserDto.weight = currentWeight
-
-        println("Day $daysCounter: weight: ${temporalUserDto.weight}, DCI: ${temporalUserDto.dailyCaloriesIndex}")
 
     } while (currentWeight >= goalWeight && daysCounter < maxProgramLength)
 
@@ -58,8 +49,6 @@ fun calculate(dto: UserDto, goalWeight: Double, programType: ProgramType): Progr
     program.goalWeight = if (currentWeight < goalWeight) goalWeight else currentWeight.round(1)
     program.programType = programType.name
     program.user = dto.id
-
-    println("Compiled program: $program")
 
     return program
 }

@@ -9,6 +9,7 @@ import ru.xpendence.slimer.entity.Program
 import ru.xpendence.slimer.mapper.impl.ProgramMapper
 import ru.xpendence.slimer.repository.ProgramRepository
 import ru.xpendence.slimer.util.calculate
+import ru.xpendence.slimer.util.logger
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -21,13 +22,26 @@ import ru.xpendence.slimer.util.calculate
 class ProgramServiceImpl @Autowired constructor(
         private val userService: UserServiceImpl
 ) : AbstractService<Program, ProgramDto, ProgramMapper, ProgramRepository>() {
+    override val log = logger<ProgramServiceImpl>()
+
+    override fun preExecution(dto: ProgramDto?) {
+        val userDto = userService.get(dto!!.user!!)
+        val programDto = dto.calculate(userDto!!, dto.goalWeight!!, ProgramType.valueOf(dto.programType!!))
+
+        dto.finished = false
+        dto.startWeight = userDto.weight
+        dto.estimatedDays = programDto.estimatedDays
+        dto.estimatedFinishDate = programDto.estimatedFinishDate
+    }
 
     fun calculate(id: Long, goalWeight: Double): List<ProgramDto> {
         val userDto = userService.get(id)
-        return listOf(
-                calculate(userDto!!, goalWeight, ProgramType.COMFORT),
-                calculate(userDto, goalWeight, ProgramType.HARD),
-                calculate(userDto, goalWeight, ProgramType.BRUTAL)
+        val programs = listOf(
+                ProgramDto().calculate(userDto!!, goalWeight, ProgramType.COMFORT),
+                ProgramDto().calculate(userDto, goalWeight, ProgramType.HARD),
+                ProgramDto().calculate(userDto, goalWeight, ProgramType.BRUTAL)
         )
+        log.info("programs calculated: $programs")
+        return programs
     }
 }

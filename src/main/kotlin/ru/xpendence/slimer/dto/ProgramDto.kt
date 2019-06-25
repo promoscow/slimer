@@ -9,7 +9,7 @@ import java.time.LocalDate
  * e-mail: v.chernyshov@pflb.ru
  */
 open class ProgramDto : AbstractDto() {
-
+    //todo завалидировать, чтобы на сохранение приходили только юзер, целевой вес и тип программы
     open var user: Long? = null
     open var finished: Boolean? = null
     open var startWeight: Double? = null
