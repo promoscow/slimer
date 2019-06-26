@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.ProgramType
+import ru.xpendence.slimer.base.StatusCode
 import ru.xpendence.slimer.dto.ProgramDto
 import ru.xpendence.slimer.dto.TodayCaloriesDto
 import ru.xpendence.slimer.dto.UserDto
@@ -64,8 +65,12 @@ class ProgramServiceImpl @Autowired constructor(
                                 .sortedBy { it.created }
                                 .findLast { it.actual }
                                 ?.programType
-                                ?: throw NoMatchingValueException("Not found actual programs for user ${userDto.id}")).percentage
-                        ).times(100).toInt()
+                                ?: throw NoMatchingValueException(
+                                        StatusCode.DATABASE_ERROR.name,
+                                        "Not found actual programs for user ${userDto.id}"
+                                )).percentage)
+                        .times(100)
+                        .toInt()
         ).div(100)
     }
 }

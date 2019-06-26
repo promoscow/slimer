@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import ru.xpendence.slimer.base.StatusCode
 import ru.xpendence.slimer.dto.AbstractDto
 
 /**
@@ -16,7 +15,7 @@ import ru.xpendence.slimer.dto.AbstractDto
 @ControllerAdvice
 class SlimerExceptionHandler : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler(value = [RuntimeException::class])
-    fun handle(exception: RuntimeException): ResponseEntity<AbstractDto>
-            = ResponseEntity.ok(AbstractDto(StatusCode.DATABASE_ERROR.code, exception.message!!))
+    @ExceptionHandler(value = [CustomException::class])
+    fun handle(exception: CustomException): ResponseEntity<AbstractDto>
+            = ResponseEntity.ok(AbstractDto(exception.code, exception.message))
 }

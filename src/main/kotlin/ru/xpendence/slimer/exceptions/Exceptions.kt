@@ -6,6 +6,8 @@ package ru.xpendence.slimer.exceptions
  * Time: 18:38
  * e-mail: 2262288@gmail.com
  */
-class DataAccessException(override val message: String) : RuntimeException(message)
+open class CustomException(open val code: String, override val message: String) : RuntimeException(message)
 
-class NoMatchingValueException(override val message: String) : RuntimeException(message)
+class DataAccessException(override val code: String, override val message: String) : CustomException(code, message)
+
+class NoMatchingValueException(override val code: String, override val message: String) : CustomException(code, message)

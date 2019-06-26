@@ -3,6 +3,7 @@ package ru.xpendence.slimer.service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
+import ru.xpendence.slimer.base.StatusCode
 import ru.xpendence.slimer.dto.AbstractDto
 import ru.xpendence.slimer.entity.AbstractEntity
 import ru.xpendence.slimer.exceptions.DataAccessException
@@ -38,7 +39,9 @@ abstract class AbstractService<
 
     override fun update(dto: D?): D? {
         val userParams = repository!!.findById(dto!!.id!!)
-                .orElseThrow { DataAccessException("Entity with id ${dto.id} not found.") }
+                .orElseThrow {
+                    DataAccessException(StatusCode.DATABASE_ERROR.name, "Entity with id ${dto.id} not found.")
+                }
         return mapper!!.toDto(repository.save(mapper.toEntity(dto, userParams)!!))
     }
 

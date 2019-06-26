@@ -17,10 +17,10 @@ open class AbstractDto() : Serializable {
     open var id: Long? = null
     open var created: LocalDateTime? = null
     open var updated: LocalDateTime? = null
-    var statusCode: Int = StatusCode.OK.code
+    var statusCode: String = StatusCode.OK.name
     var errorMessage: String? = null
 
-    constructor(code: Int, message: String) : this() {
+    constructor(code: String, message: String) : this() {
         this.statusCode = code
         this.errorMessage = message
     }
@@ -44,14 +44,12 @@ open class AbstractDto() : Serializable {
         var result = id?.hashCode() ?: 0
         result = 31 * result + (created?.hashCode() ?: 0)
         result = 31 * result + (updated?.hashCode() ?: 0)
-        result = 31 * result + statusCode
+        result = 31 * result + statusCode.hashCode()
         result = 31 * result + (errorMessage?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
-        return "AbstractDto(id=$id, created=$created, updated=$updated, statusCode=$statusCode, " +
-                "errorMessage=$errorMessage)"
+        return "AbstractDto(id=$id, created=$created, updated=$updated, statusCode='$statusCode', errorMessage=$errorMessage)"
     }
-
 }
