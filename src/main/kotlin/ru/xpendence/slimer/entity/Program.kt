@@ -37,4 +37,7 @@ open class Program : AbstractEntity() {
 
     @Column(name = "estimated_finish")
     open var estimatedFinishDate: LocalDate? = null
+    
+    @Column(name = "actual")
+    open var actual: Boolean? = null
 }

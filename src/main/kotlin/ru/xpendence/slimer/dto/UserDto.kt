@@ -26,7 +26,7 @@ open class UserDto : AbstractDto() {
     open var birthDate: LocalDate? = null
 
     @Null
-    open val contacts: List<ContactDto> = ArrayList()
+    open val contacts: MutableList<ContactDto> = ArrayList()
 
     @Null
     open var dailyCaloriesIndex: Int? = null

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.xpendence.slimer.dto.ProgramDto
+import ru.xpendence.slimer.dto.TodayCaloriesDto
 import ru.xpendence.slimer.service.ProgramServiceImpl
 
 /**
@@ -31,6 +32,10 @@ class ProgramController @Autowired constructor(val service: ProgramServiceImpl) 
     fun calculate(@RequestParam(value = "id") id: Long,
                   @RequestParam(value = "goal") goalWeight: Double): ResponseEntity<List<ProgramDto>> =
             ResponseEntity.ok(service.calculate(id, goalWeight))
+
+    @GetMapping("/today")
+    fun getTodayCalories(@RequestParam(value = "id") id: Long): ResponseEntity<TodayCaloriesDto> =
+            ResponseEntity.ok(service.getTodayCalories(id))
 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<ProgramDto>> = ResponseEntity.ok(service.getAll(pageable))

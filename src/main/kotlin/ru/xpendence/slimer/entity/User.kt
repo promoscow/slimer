@@ -1,5 +1,7 @@
 package ru.xpendence.slimer.entity
 
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import ru.xpendence.slimer.base.BmiCategory
@@ -35,8 +37,8 @@ open class User : AbstractEntity() {
     @Column(name = "birth_date")
     open var birthDate: LocalDate? = null
 
-    @OrderColumn
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     open var contacts: MutableList<Contact> = ArrayList()
 
     @Column(name = "dci", nullable = false)
@@ -52,7 +54,7 @@ open class User : AbstractEntity() {
     @Column(name = "bmi_category")
     open var bmiCategory: BmiCategory? = null
 
-    @OrderColumn
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     open var programs: MutableList<Program> = ArrayList()
 }

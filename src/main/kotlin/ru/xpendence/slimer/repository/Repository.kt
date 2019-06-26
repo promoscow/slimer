@@ -1,6 +1,7 @@
 package ru.xpendence.slimer.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Repository
 import ru.xpendence.slimer.entity.AbstractEntity
@@ -24,4 +25,9 @@ interface UserRepository : CommonRepository<User>
 interface ContactRepository : CommonRepository<Contact>
 
 @Repository
-interface ProgramRepository : CommonRepository<Program>
+interface ProgramRepository : CommonRepository<Program> {
+
+    @Query(
+            value = "select * from programs as p where p.user_id = :userId and p.actual = true order by r.created limit 1", nativeQuery = true)
+    fun findByUserId(userId: Long): Program
+}

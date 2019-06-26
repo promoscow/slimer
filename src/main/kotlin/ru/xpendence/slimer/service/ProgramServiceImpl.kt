@@ -5,11 +5,15 @@ import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.ProgramType
 import ru.xpendence.slimer.dto.ProgramDto
+import ru.xpendence.slimer.dto.TodayCaloriesDto
+import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.entity.Program
+import ru.xpendence.slimer.exceptions.NoMatchingValueException
 import ru.xpendence.slimer.mapper.impl.ProgramMapper
 import ru.xpendence.slimer.repository.ProgramRepository
 import ru.xpendence.slimer.util.calculate
 import ru.xpendence.slimer.util.logger
+import java.time.LocalDate
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -43,5 +47,26 @@ class ProgramServiceImpl @Autowired constructor(
         )
         log.info("programs calculated: $programs")
         return programs
+    }
+
+    fun getByUser(user: Long): ProgramDto = mapper!!.toDto(repository!!.findByUserId(user))
+
+    fun getTodayCalories(userId: Long): TodayCaloriesDto = TodayCaloriesDto(
+            userId,
+            LocalDate.now(),
+            calculateCalories(userService.get(userId))
+    )
+
+    private fun calculateCalories(userDto: UserDto?): Int {
+        return userDto!!.dailyCaloriesIndex!!.times(
+                (
+                        ProgramType.valueOf(userDto.programs
+                                .sortedBy { it.created }
+                                .findLast { it.actual }
+                                ?.programType ?: throw NoMatchingValueException("Not found actual programs for user ${userDto.id}")).percentage
+                        )
+                        .times(100)
+                        .toInt()
+        ).div(100)
     }
 }

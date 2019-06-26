@@ -17,6 +17,7 @@ open class ProgramDto : AbstractDto() {
     open var goalWeight: Double? = null
     open var programType: String? = null
     open var estimatedFinishDate: LocalDate? = null
+    open var actual: Boolean = true
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -32,6 +33,7 @@ open class ProgramDto : AbstractDto() {
         if (goalWeight != other.goalWeight) return false
         if (programType != other.programType) return false
         if (estimatedFinishDate != other.estimatedFinishDate) return false
+        if (actual != other.actual) return false
 
         return true
     }
@@ -45,13 +47,13 @@ open class ProgramDto : AbstractDto() {
         result = 31 * result + (goalWeight?.hashCode() ?: 0)
         result = 31 * result + (programType?.hashCode() ?: 0)
         result = 31 * result + (estimatedFinishDate?.hashCode() ?: 0)
+        result = 31 * result + (actual?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
         return "ProgramDto(user=$user, finished=$finished, startWeight=$startWeight, estimatedDays=$estimatedDays, " +
-                "goalWeight=$goalWeight, programType=$programType, estimatedFinishDate=$estimatedFinishDate)"
+                "goalWeight=$goalWeight, programType=$programType, estimatedFinishDate=$estimatedFinishDate, " +
+                "actual=$actual)"
     }
-
-
 }
