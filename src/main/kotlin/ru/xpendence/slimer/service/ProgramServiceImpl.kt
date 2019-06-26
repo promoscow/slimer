@@ -63,10 +63,9 @@ class ProgramServiceImpl @Autowired constructor(
                         ProgramType.valueOf(userDto.programs
                                 .sortedBy { it.created }
                                 .findLast { it.actual }
-                                ?.programType ?: throw NoMatchingValueException("Not found actual programs for user ${userDto.id}")).percentage
-                        )
-                        .times(100)
-                        .toInt()
+                                ?.programType
+                                ?: throw NoMatchingValueException("Not found actual programs for user ${userDto.id}")).percentage
+                        ).times(100).toInt()
         ).div(100)
     }
 }
