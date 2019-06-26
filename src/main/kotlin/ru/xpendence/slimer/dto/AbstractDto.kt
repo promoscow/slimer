@@ -12,13 +12,18 @@ import java.time.LocalDateTime
  * e-mail:
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-open class AbstractDto : Serializable {
+open class AbstractDto() : Serializable {
 
     open var id: Long? = null
     open var created: LocalDateTime? = null
     open var updated: LocalDateTime? = null
-    open var statusCode: Int = StatusCode.OK.code
-    open var errorMEssage: String? = null
+    var statusCode: Int = StatusCode.OK.code
+    var errorMessage: String? = null
+
+    constructor(code: Int, message: String) : this() {
+        this.statusCode = code
+        this.errorMessage = message
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -30,7 +35,7 @@ open class AbstractDto : Serializable {
         if (created != other.created) return false
         if (updated != other.updated) return false
         if (statusCode != other.statusCode) return false
-        if (errorMEssage != other.errorMEssage) return false
+        if (errorMessage != other.errorMessage) return false
 
         return true
     }
@@ -40,13 +45,13 @@ open class AbstractDto : Serializable {
         result = 31 * result + (created?.hashCode() ?: 0)
         result = 31 * result + (updated?.hashCode() ?: 0)
         result = 31 * result + statusCode
-        result = 31 * result + (errorMEssage?.hashCode() ?: 0)
+        result = 31 * result + (errorMessage?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
         return "AbstractDto(id=$id, created=$created, updated=$updated, statusCode=$statusCode, " +
-                "errorMEssage=$errorMEssage)"
+                "errorMessage=$errorMessage)"
     }
 
 }
