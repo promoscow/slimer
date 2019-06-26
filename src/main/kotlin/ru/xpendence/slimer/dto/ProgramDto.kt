@@ -1,6 +1,10 @@
 package ru.xpendence.slimer.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import ru.xpendence.slimer.dto.validation.Validate
 import java.time.LocalDate
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Null
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -9,14 +13,29 @@ import java.time.LocalDate
  * e-mail: 2262288@gmail.com
  */
 open class ProgramDto : AbstractDto() {
-    //todo завалидировать, чтобы на сохранение приходили только юзер, целевой вес и тип программы
+
+    @NotNull(groups = [Validate.Create::class])
     open var user: Long? = null
+
+    @Null(groups = [Validate.Create::class])
     open var finished: Boolean? = null
+
+    @Null(groups = [Validate.Create::class])
     open var startWeight: Double? = null
+
+    @Null(groups = [Validate.Create::class])
     open var estimatedDays: Int? = null
+
+    @NotNull(groups = [Validate.Create::class])
     open var goalWeight: Double? = null
+
+    @NotNull(groups = [Validate.Create::class])
     open var programType: String? = null
+
+    @Null(groups = [Validate.Create::class])
     open var estimatedFinishDate: LocalDate? = null
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     open var actual: Boolean = true
 
     override fun equals(other: Any?): Boolean {
