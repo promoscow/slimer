@@ -4,7 +4,7 @@ package ru.xpendence.slimer.base
  * Author: Vyacheslav Chernyshov
  * Date: 23.06.19
  * Time: 16:18
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 enum class BmiCategory(val min: Double, val max: Double, val desctiption: String) {
     VERY_LOW(0.0, 6.0, "Выраженный дефицит массы тела"),

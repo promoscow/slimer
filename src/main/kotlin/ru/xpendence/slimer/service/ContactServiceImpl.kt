@@ -11,7 +11,7 @@ import ru.xpendence.slimer.repository.ContactRepository
  * Author: Vyacheslav Chernyshov
  * Date: 22.06.19
  * Time: 15:10
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Service
 @ServiceImpl

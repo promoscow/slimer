@@ -13,7 +13,7 @@ import ru.xpendence.slimer.service.ProgramServiceImpl
  * Author: Vyacheslav Chernyshov
  * Date: 24.06.19
  * Time: 11:27
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @RestController
 @RequestMapping("/program")

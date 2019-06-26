@@ -17,7 +17,7 @@ import ru.xpendence.slimer.service.AbstractService
  * Author: Vyacheslav Chernyshov
  * Date: 21.06.19
  * Time: 14:33
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 //@RestController
 //@RequestMapping("/contact")

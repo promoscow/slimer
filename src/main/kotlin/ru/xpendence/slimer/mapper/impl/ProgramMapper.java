@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
  * Author: Vyacheslav Chernyshov
  * Date: 24.06.19
  * Time: 11:18
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Component
 @Mapper(entity = Program.class, dto = ProgramDto.class)

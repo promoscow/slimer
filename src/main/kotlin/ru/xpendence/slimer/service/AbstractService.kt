@@ -14,7 +14,7 @@ import ru.xpendence.slimer.util.logger
  * Author: Vyacheslav Chernyshov
  * Date: 22.06.19
  * Time: 15:12
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 abstract class AbstractService<
         E : AbstractEntity,

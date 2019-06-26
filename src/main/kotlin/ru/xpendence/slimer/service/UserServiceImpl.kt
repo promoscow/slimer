@@ -12,7 +12,7 @@ import ru.xpendence.slimer.util.*
  * Author: Vyacheslav Chernyshov
  * Date: 22.06.19
  * Time: 15:09
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Service
 @ServiceImpl

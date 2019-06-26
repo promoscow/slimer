@@ -5,7 +5,7 @@ package ru.xpendence.slimer.base
  * Author: Vyacheslav Chernyshov
  * Date: 22.06.19
  * Time: 16:40
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 enum class PhysicalActivityIndex {
     VERY_LOW, LOW, AVERAGE, HIGH

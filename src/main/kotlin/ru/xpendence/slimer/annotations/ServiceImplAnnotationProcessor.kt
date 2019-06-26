@@ -11,7 +11,7 @@ import java.util.*
  * Author: Vyacheslav Chernyshov
  * Date: 21.06.19
  * Time: 13:44
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Component
 class ServiceImplAnnotationProcessor @Autowired constructor(

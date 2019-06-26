@@ -9,7 +9,7 @@ import ru.xpendence.slimer.dto.AbstractDto
  * Author: Vyacheslav Chernyshov
  * Date: 22.06.19
  * Time: 15:11
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 interface CrudService<D : AbstractDto> {
 

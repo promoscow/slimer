@@ -10,7 +10,7 @@ import kotlin.math.round
  * Author: Vyacheslav Chernyshov
  * Date: 23.06.19
  * Time: 13:57
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 
 const val caloriesInFat: Double = 5.5

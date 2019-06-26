@@ -10,7 +10,7 @@ import kotlin.math.pow
  * Author: Vyacheslav Chernyshov
  * Date: 22.06.19
  * Time: 20:06
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 fun UserDto.calculateDci(): Int =
         if (gender == Gender.MALE.name) {
