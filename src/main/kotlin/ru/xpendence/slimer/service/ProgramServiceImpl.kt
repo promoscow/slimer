@@ -29,7 +29,7 @@ class ProgramServiceImpl @Autowired constructor(
 ) : AbstractService<Program, ProgramDto, ProgramMapper, ProgramRepository>() {
     override val log = logger<ProgramServiceImpl>()
 
-    override fun preExecution(dto: ProgramDto?) {
+    override fun preCreate(dto: ProgramDto?) {
         val userDto = userService.get(dto!!.user!!)
         val programDto = dto.calculate(userDto!!, dto.goalWeight!!, ProgramType.valueOf(dto.programType!!))
 
@@ -37,6 +37,12 @@ class ProgramServiceImpl @Autowired constructor(
         dto.startWeight = userDto.weight
         dto.estimatedDays = programDto.estimatedDays
         dto.estimatedFinishDate = programDto.estimatedFinishDate
+
+        repository!!.deactivate(dto.user!!)
+    }
+
+    override fun preUpdate(dto: ProgramDto?) {
+
     }
 
     fun calculate(id: Long, goalWeight: Double): List<ProgramDto> {

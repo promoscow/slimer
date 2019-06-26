@@ -33,11 +33,12 @@ abstract class AbstractService<
     override fun save(dto: D?): D? {
         log.info("---> dto ${dto!!.hashCode()} has arrived to save: $dto")
         validate(dto)
-        preExecution(dto)
+        preCreate(dto)
         return mapper!!.toDto(repository!!.save(mapper.toEntity(dto)!!))
     }
 
     override fun update(dto: D?): D? {
+        preUpdate(dto)
         val userParams = repository!!.findById(dto!!.id!!)
                 .orElseThrow {
                     DataAccessException(StatusCode.DATABASE_ERROR.name, "Entity with id ${dto.id} not found.")
@@ -56,5 +57,7 @@ abstract class AbstractService<
 
     open fun validate(dto: D?) {}
 
-    open fun preExecution(dto: D?) {}
+    open fun preCreate(dto: D?) {}
+
+    open fun preUpdate(dto: D?) {}
 }
