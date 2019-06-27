@@ -11,7 +11,7 @@ import javax.persistence.*
  * e-mail: 2262288@gmail.com
  */
 @Entity
-@Table(name = "contacts")
+@Table(name = "contacts", indexes = [Index(columnList = "user_id", name = "contact_user_index")])
 @SQLDelete(sql = "UPDATE contacts SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class Contact : AbstractEntity() {
