@@ -42,4 +42,22 @@ interface ProgramRepository : CommonRepository<Program> {
             nativeQuery = true
     )
     fun deactivate(userId: Long)
+
+    @Query(
+            value = "select * from programs where user_id " +
+                    "in (select p.user_id from programs as p where p.id = :id) and actual = true",
+            nativeQuery = true
+    )
+    fun findActualInGroupById(id: Long): Program?
+
+    @Modifying
+    @Query(
+            value = "update programs set actual = false where user_id " +
+                    "in (select p.user_id from programs as p where p.id = :id) and actual = true",
+            nativeQuery = true
+    )
+    fun deactivateAllRelated(id: Long)
+
+    @Query("select p.user_id from programs as p where p.id = :id", nativeQuery = true)
+    fun getUserIdForProgram(id: Long): Long?
 }

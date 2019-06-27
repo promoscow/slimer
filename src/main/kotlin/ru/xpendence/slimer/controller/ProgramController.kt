@@ -37,6 +37,10 @@ class ProgramController @Autowired constructor(val service: ProgramServiceImpl) 
                   @RequestParam(value = "goal") goalWeight: Double): ResponseEntity<List<ProgramDto>> =
             ResponseEntity.ok(service.calculate(id, goalWeight))
 
+    @GetMapping("/actual")
+    fun getActualByUser(@RequestParam(value = "userId") userId: Long): ResponseEntity<ProgramDto> =
+            ResponseEntity.ok(service.getActualByUser(userId))
+
     @GetMapping("/today")
     fun getTodayCalories(@RequestParam(value = "id") id: Long): ResponseEntity<TodayCaloriesDto> =
             ResponseEntity.ok(service.getTodayCalories(id))

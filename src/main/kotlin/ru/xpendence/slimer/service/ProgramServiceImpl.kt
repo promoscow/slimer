@@ -9,6 +9,7 @@ import ru.xpendence.slimer.dto.ProgramDto
 import ru.xpendence.slimer.dto.TodayCaloriesDto
 import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.entity.Program
+import ru.xpendence.slimer.exceptions.DataAccessException
 import ru.xpendence.slimer.exceptions.NoMatchingValueException
 import ru.xpendence.slimer.mapper.impl.ProgramMapper
 import ru.xpendence.slimer.repository.ProgramRepository
@@ -42,7 +43,7 @@ class ProgramServiceImpl @Autowired constructor(
     }
 
     override fun preUpdate(dto: ProgramDto?) {
-
+        if (dto!!.actual) repository!!.deactivate(getUserIdForProgram(dto))
     }
 
     fun calculate(id: Long, goalWeight: Double): List<ProgramDto> {
@@ -56,7 +57,7 @@ class ProgramServiceImpl @Autowired constructor(
         return programs
     }
 
-    fun getByUser(userId: Long): ProgramDto = mapper!!.toDto(repository!!.findActualByUserId(userId))
+    fun getActualByUser(userId: Long): ProgramDto = mapper!!.toDto(repository!!.findActualByUserId(userId))
 
     fun getAllByUser(userId: Long): List<ProgramDto> = repository!!.findAllByUserId(userId).map { mapper!!.toDto(it) }
 
@@ -65,6 +66,18 @@ class ProgramServiceImpl @Autowired constructor(
             LocalDate.now(),
             calculateCalories(userService.get(userId))
     )
+
+    private fun getUserIdForProgram(dto: ProgramDto): Long = repository!!.getUserIdForProgram(dto.id!!)
+            ?: throw DataAccessException(
+                    StatusCode.DATABASE_ERROR.name,
+                    "No active programs for owner of program ${dto.id}"
+            )
+
+    private fun getActualInGroupByProgramId(dto: ProgramDto): Program = repository!!.findActualInGroupById(dto.id!!)
+                ?: throw DataAccessException(
+                        StatusCode.DATABASE_ERROR.name,
+                        "No active programs for owner of program ${dto.id}"
+                )
 
     private fun calculateCalories(userDto: UserDto?): Int {
         return userDto!!.dailyCaloriesIndex!!.times(
