@@ -56,7 +56,9 @@ class ProgramServiceImpl @Autowired constructor(
         return programs
     }
 
-    fun getByUser(user: Long): ProgramDto = mapper!!.toDto(repository!!.findByUserId(user))
+    fun getByUser(userId: Long): ProgramDto = mapper!!.toDto(repository!!.findActualByUserId(userId))
+
+    fun getAllByUser(userId: Long): List<ProgramDto> = repository!!.findAllByUserId(userId).map { mapper!!.toDto(it) }
 
     fun getTodayCalories(userId: Long): TodayCaloriesDto = TodayCaloriesDto(
             userId,

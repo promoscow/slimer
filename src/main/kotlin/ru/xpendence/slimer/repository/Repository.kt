@@ -31,7 +31,10 @@ interface ProgramRepository : CommonRepository<Program> {
     @Query(
             value = "select * from programs as p where p.user_id = :userId and p.actual = true order by p.created limit 1",
             nativeQuery = true)
-    fun findByUserId(userId: Long): Program
+    fun findActualByUserId(userId: Long): Program
+
+    @Query(value = "select * from programs where user_id = :userId", nativeQuery = true)
+    fun findAllByUserId(userId: Long): List<Program>
 
     @Modifying
     @Query(

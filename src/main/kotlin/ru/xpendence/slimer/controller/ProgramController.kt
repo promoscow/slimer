@@ -44,6 +44,11 @@ class ProgramController @Autowired constructor(val service: ProgramServiceImpl) 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<ProgramDto>> = ResponseEntity.ok(service.getAll(pageable))
 
+    //todo переделать на Page
+    @GetMapping("/user")
+    fun getAllByUser(@RequestParam(value = "id") userId: Long): ResponseEntity<List<ProgramDto>> =
+            ResponseEntity.ok(service.getAllByUser(userId))
+
     @DeleteMapping
     fun delete(@RequestParam(value = "id") id: Long): ResponseEntity<Boolean> = ResponseEntity.ok(service.delete(id))
 }
