@@ -5,10 +5,7 @@ import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Repository
-import ru.xpendence.slimer.entity.AbstractEntity
-import ru.xpendence.slimer.entity.Contact
-import ru.xpendence.slimer.entity.Program
-import ru.xpendence.slimer.entity.User
+import ru.xpendence.slimer.entity.*
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -24,6 +21,9 @@ interface UserRepository : CommonRepository<User>
 
 @Repository
 interface ContactRepository : CommonRepository<Contact>
+
+@Repository
+interface ProductRepository : CommonRepository<Product>
 
 @Repository
 interface ProgramRepository : CommonRepository<Program> {
