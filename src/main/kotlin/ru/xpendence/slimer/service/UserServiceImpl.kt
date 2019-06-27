@@ -2,8 +2,11 @@ package ru.xpendence.slimer.service
 
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
+import ru.xpendence.slimer.base.StatusCode
+import ru.xpendence.slimer.base.indexes
 import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.entity.User
+import ru.xpendence.slimer.exceptions.DataAccessException
 import ru.xpendence.slimer.mapper.impl.UserMapper
 import ru.xpendence.slimer.repository.UserRepository
 import ru.xpendence.slimer.util.*
@@ -18,6 +21,27 @@ import ru.xpendence.slimer.util.*
 @ServiceImpl
 class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepository>() {
     override val log = logger<UserServiceImpl>()
+
+    override fun update(dto: UserDto?): UserDto? {
+        val user = repository!!.findById(dto!!.id!!)
+                .orElseThrow {
+                    DataAccessException(StatusCode.DATABASE_ERROR.name, "Entity with id ${dto.id} not found.")
+                }
+
+        if (dto.weight == null) dto.weight = user.weight
+        if (dto.height == null) dto.height = user.height
+        if (dto.gender == null) dto.gender = user.gender!!.name
+        if (dto.birthDate == null) dto.birthDate = user.birthDate
+        if (dto.physicalActivityIndex == null) dto.physicalActivityIndex =
+                indexes[user.physicalActivityIndex]!![user.gender]
+
+        dto.age = dto.calculateAge()
+        dto.dailyCaloriesIndex = dto.calculateDci()
+        dto.bodyMassIndex = dto.calculateBmi()
+        dto.bmiCategory = dto.defineBmiCategory()
+
+        return mapper!!.toDto(repository.save(mapper.toEntity(dto)))
+    }
 
     override fun validate(dto: UserDto?) {
 
