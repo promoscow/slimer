@@ -29,6 +29,9 @@ interface ProductRepository : CommonRepository<Product>
 interface PortionRepository : CommonRepository<Portion>
 
 @Repository
+interface MealRepository : CommonRepository<Meal>
+
+@Repository
 interface ProgramRepository : CommonRepository<Program> {
 
     @Query(

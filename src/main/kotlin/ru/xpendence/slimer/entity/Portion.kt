@@ -2,9 +2,7 @@ package ru.xpendence.slimer.entity
 
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Table
+import javax.persistence.*
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -24,6 +22,10 @@ open class Portion : AbstractEntity() {
     @Column(name = "weight")
     open var weight: Int? = null
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "meal_id", nullable = false)
+    open var meal: Meal? = null
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -32,6 +34,7 @@ open class Portion : AbstractEntity() {
 
         if (product != other.product) return false
         if (weight != other.weight) return false
+        if (meal != other.meal) return false
 
         return true
     }
@@ -39,10 +42,11 @@ open class Portion : AbstractEntity() {
     override fun hashCode(): Int {
         var result = product?.hashCode() ?: 0
         result = 31 * result + (weight ?: 0)
+        result = 31 * result + (meal?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
-        return "Portion(product=$product, weight=$weight)"
+        return "Portion(product=$product, weight=$weight, meal=$meal)"
     }
 }
