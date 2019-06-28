@@ -26,6 +26,9 @@ interface ContactRepository : CommonRepository<Contact>
 interface ProductRepository : CommonRepository<Product>
 
 @Repository
+interface PortionRepository : CommonRepository<Portion>
+
+@Repository
 interface ProgramRepository : CommonRepository<Program> {
 
     @Query(
