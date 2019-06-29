@@ -12,7 +12,7 @@ open class ProductDto : AbstractDto() {
     open var proteins: Double? = null
     open var carbohydrates: Double? = null
     open var fats: Double? = null
-    open var calories: Double? = null
+    open var calories: Int? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -36,13 +36,11 @@ open class ProductDto : AbstractDto() {
         result = 31 * result + (proteins?.hashCode() ?: 0)
         result = 31 * result + (carbohydrates?.hashCode() ?: 0)
         result = 31 * result + (fats?.hashCode() ?: 0)
-        result = 31 * result + (calories?.hashCode() ?: 0)
+        result = 31 * result + (calories ?: 0)
         return result
     }
 
     override fun toString(): String {
         return "ProductDto(name=$name, proteins=$proteins, carbohydrates=$carbohydrates, fats=$fats, calories=$calories)"
     }
-
-
 }
