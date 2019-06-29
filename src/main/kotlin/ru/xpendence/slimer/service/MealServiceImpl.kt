@@ -6,6 +6,7 @@ import ru.xpendence.slimer.dto.MealDto
 import ru.xpendence.slimer.entity.Meal
 import ru.xpendence.slimer.mapper.impl.MealMapper
 import ru.xpendence.slimer.repository.MealRepository
+import java.time.LocalDate
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -15,4 +16,8 @@ import ru.xpendence.slimer.repository.MealRepository
  */
 @Service
 @ServiceImpl
-class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepository>()
+class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepository>() {
+
+    fun getAllByDateForUser(userId: Long, date: LocalDate): List<MealDto> =
+            repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
+}

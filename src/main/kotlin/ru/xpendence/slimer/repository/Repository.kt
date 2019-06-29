@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Repository
 import ru.xpendence.slimer.entity.*
+import java.time.LocalDate
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -29,7 +30,14 @@ interface ProductRepository : CommonRepository<Product>
 interface PortionRepository : CommonRepository<Portion>
 
 @Repository
-interface MealRepository : CommonRepository<Meal>
+interface MealRepository : CommonRepository<Meal> {
+
+    @Query(
+            value = "select * from meals where user_id = :userId and date = :requestedDate",
+            nativeQuery = true
+    )
+    fun getAllByDateForUser(userId: Long, requestedDate: LocalDate): List<Meal>
+}
 
 @Repository
 interface ProgramRepository : CommonRepository<Program> {
@@ -37,7 +45,7 @@ interface ProgramRepository : CommonRepository<Program> {
     @Query(
             value = "select * from programs as p where p.user_id = :userId and p.actual = true order by p.created limit 1",
             nativeQuery = true)
-    fun findActualByUserId(userId: Long): Program
+    fun findActualByUserId(userId: Long): Program?
 
     @Query(value = "select * from programs where user_id = :userId", nativeQuery = true)
     fun findAllByUserId(userId: Long): List<Program>

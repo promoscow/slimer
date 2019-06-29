@@ -57,7 +57,9 @@ class ProgramServiceImpl @Autowired constructor(
         return programs
     }
 
-    fun getActualByUser(userId: Long): ProgramDto = mapper!!.toDto(repository!!.findActualByUserId(userId))
+    fun getActualByUser(userId: Long): ProgramDto =
+            mapper!!.toDto(repository!!.findActualByUserId(userId)
+                    ?: throw DataAccessException(StatusCode.DATABASE_ERROR.name, "No programs for user $userId"))
 
     fun getAllByUser(userId: Long): List<ProgramDto> = repository!!.findAllByUserId(userId).map { mapper!!.toDto(it) }
 

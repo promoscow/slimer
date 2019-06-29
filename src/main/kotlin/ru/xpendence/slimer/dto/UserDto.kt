@@ -40,7 +40,7 @@ open class UserDto : AbstractDto() {
 
     open var programs: MutableList<ProgramDto> = ArrayList()
 
-
+    open var meals: MutableList<MealDto> = ArrayList()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -60,6 +60,7 @@ open class UserDto : AbstractDto() {
         if (bodyMassIndex != other.bodyMassIndex) return false
         if (bmiCategory != other.bmiCategory) return false
         if (programs != other.programs) return false
+        if (meals != other.meals) return false
 
         return true
     }
@@ -77,6 +78,7 @@ open class UserDto : AbstractDto() {
         result = 31 * result + (bodyMassIndex?.hashCode() ?: 0)
         result = 31 * result + (bmiCategory?.hashCode() ?: 0)
         result = 31 * result + programs.hashCode()
+        result = 31 * result + meals.hashCode()
         return result
     }
 
@@ -84,8 +86,6 @@ open class UserDto : AbstractDto() {
         return "UserDto(height=$height, weight=$weight, age=$age, gender=$gender, birthDate=$birthDate, " +
                 "contacts=$contacts, dailyCaloriesIndex=$dailyCaloriesIndex, " +
                 "physicalActivityIndex=$physicalActivityIndex, bodyMassIndex=$bodyMassIndex, " +
-                "bmiCategory=$bmiCategory, programs=$programs)"
+                "bmiCategory=$bmiCategory, programs=$programs, meals=$meals)"
     }
-
-
 }

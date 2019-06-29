@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.xpendence.slimer.dto.MealDto
 import ru.xpendence.slimer.service.MealServiceImpl
+import java.time.LocalDate
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -29,6 +30,11 @@ class MealController @Autowired constructor(val service: MealServiceImpl) {
 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<MealDto>> = ResponseEntity.ok(service.getAll(pageable))
+
+    @GetMapping("/date")
+    fun getAllByDateForUser(@RequestParam("id") userId: Long,
+                            @RequestParam("date") date: LocalDate?): ResponseEntity<List<MealDto>> =
+            ResponseEntity.ok(service.getAllByDateForUser(userId, date ?: LocalDate.now()))
 
     @DeleteMapping
     fun delete(@RequestParam(value = "id") id: Long): ResponseEntity<Boolean> = ResponseEntity.ok(service.delete(id))

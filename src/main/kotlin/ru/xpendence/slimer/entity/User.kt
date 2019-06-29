@@ -51,10 +51,15 @@ open class User : AbstractEntity() {
     @Column(name = "bmi")
     open var bodyMassIndex: Double? = null
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "bmi_category")
     open var bmiCategory: BmiCategory? = null
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     open var programs: MutableList<Program> = ArrayList()
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
+    open var meals: MutableList<Meal> = ArrayList()
 }

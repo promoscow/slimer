@@ -1,10 +1,10 @@
 package ru.xpendence.slimer.entity
 
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Table
+import javax.persistence.*
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -33,32 +33,7 @@ open class Product : AbstractEntity() {
     @Column(name = "calories")
     open var calories: Int? = null
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Product
-
-        if (name != other.name) return false
-        if (proteins != other.proteins) return false
-        if (carbohydrates != other.carbohydrates) return false
-        if (fats != other.fats) return false
-        if (calories != other.calories) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = name?.hashCode() ?: 0
-        result = 31 * result + (proteins?.hashCode() ?: 0)
-        result = 31 * result + (carbohydrates?.hashCode() ?: 0)
-        result = 31 * result + (fats?.hashCode() ?: 0)
-        result = 31 * result + (calories ?: 0)
-        return result
-    }
-
-    override fun toString(): String {
-        return "Product(name=$name, proteins=$proteins, carbohydrates=$carbohydrates, fats=$fats, calories=$calories)"
-    }
-
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "product")
+    open var portions: MutableList<Portion> = ArrayList()
 }

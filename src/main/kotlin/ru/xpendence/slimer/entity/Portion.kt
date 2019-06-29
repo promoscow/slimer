@@ -11,12 +11,13 @@ import javax.persistence.*
  * e-mail: v.chernyshov@pflb.ru
  */
 @Entity
-@Table(name = "portions")
+@Table(name = "portions", indexes = [Index(columnList = "meal_id", name = "portion_meal_index")])
 @SQLDelete(sql = "UPDATE portions SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class Portion : AbstractEntity() {
 
-    @Column(name = "product")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
     open var product: Product? = null
 
     @Column(name = "weight")
