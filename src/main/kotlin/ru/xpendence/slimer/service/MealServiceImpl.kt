@@ -32,8 +32,18 @@ class MealServiceImpl @Autowired constructor(private val productRepository: Prod
     fun getStatsByDateForUser(userId: Long, date: LocalDate): DayNutritionsDto {
         val meals: List<MealDto> = repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
         meals
-                .flatMap { meal -> productRepository.findAllById(meal.portions.map { it.product }.toSet()) }
-                .
+                .flatMap { m -> productRepository.findAllById(m.portions.map { it.product!!.id }.toSet()) }
+                .map { p ->
+                    meals.flatMap { it.portions }.map {
+                        DayNutritionsDto(
+                                p.proteins!!.times(it.weight!!),
+                                p.carbohydrates!!.times(it.weight!!),
+                                p.fats!!.times(it.weight!!),
+                                p.calories!!.times(it.weight!!),
+                                userId,
+                                date)
+                    }
+                }.reduce { left, right -> left. }
     }
 
 
