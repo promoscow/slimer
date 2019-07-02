@@ -3,7 +3,7 @@ package ru.xpendence.slimer.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
-import ru.xpendence.slimer.dto.DayNutritionsDto
+import ru.xpendence.slimer.dto.DayNutrientsDto
 import ru.xpendence.slimer.dto.MealDto
 import ru.xpendence.slimer.entity.Meal
 import ru.xpendence.slimer.mapper.impl.MealMapper
@@ -29,13 +29,13 @@ class MealServiceImpl @Autowired constructor(private val productRepository: Prod
     //получить их из базы
     //взять все порции
     //получить и вернуть объект из сумм БЖУ по порциям
-    fun getStatsByDateForUser(userId: Long, date: LocalDate): DayNutritionsDto {
+    fun getStatsByDateForUser(userId: Long, date: LocalDate): DayNutrientsDto {
         val meals: List<MealDto> = repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
-        meals
+        val list = meals
                 .flatMap { m -> productRepository.findAllById(m.portions.map { it.product!!.id }.toSet()) }
                 .map { p ->
                     meals.flatMap { it.portions }.map {
-                        DayNutritionsDto(
+                        DayNutrientsDto(
                                 p.proteins!!.times(it.weight!!),
                                 p.carbohydrates!!.times(it.weight!!),
                                 p.fats!!.times(it.weight!!),
@@ -43,7 +43,8 @@ class MealServiceImpl @Autowired constructor(private val productRepository: Prod
                                 userId,
                                 date)
                     }
-                }.reduce { left, right -> left. }
+                }
+        return list
     }
 
 
