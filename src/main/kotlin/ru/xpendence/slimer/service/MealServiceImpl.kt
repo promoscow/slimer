@@ -40,7 +40,8 @@ class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepositor
                             userId,
                             date
                     )
-                }.reduce { acc, el ->
+                }
+                .reduce { acc, el ->
                     DayNutrientsDto(
                             acc.proteins + el.proteins,
                             acc.carbohydrates + el.carbohydrates,
