@@ -23,9 +23,12 @@ class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepositor
             repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
 
     fun getStatsByDateForUser(userId: Long, date: LocalDate): DayNutrientsDto {
-        val meals = repository!!.getAllByDateForUser(userId, date)
-        if (meals.isEmpty()) return DayNutrientsDto(0.0, 0.0, 0.0, 0, userId, date)
-        return meals
+        return repository!!.getAllByDateForUser(userId, date)
+                .also { meals ->
+                    if (meals.isEmpty()) return DayNutrientsDto(
+                            0.0, 0.0, 0.0, 0, userId, date
+                    )
+                }
                 .map { mapper!!.toDto(it) }
                 .flatMap { it.portions }
                 .map { p ->
