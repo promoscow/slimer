@@ -30,21 +30,47 @@ class MealServiceImpl @Autowired constructor(private val productRepository: Prod
     //взять все порции
     //получить и вернуть объект из сумм БЖУ по порциям
     fun getStatsByDateForUser(userId: Long, date: LocalDate): DayNutrientsDto {
-        val meals: List<MealDto> = repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
-        val list = meals
-                .flatMap { m -> productRepository.findAllById(m.portions.map { it.product!!.id }.toSet()) }
+//        val meals: List<MealDto> = repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
+//        val products: List<Product> = meals.flatMap { m -> productRepository.findAllById(m.portions.map { it.product!!.id }.toSet()) }
+//
+//        val portions: List<PortionDto> = meals.flatMap { it.portions }
+
+        return repository!!.getAllByDateForUser(userId, date)
+                .map { mapper!!.toDto(it) }
+                .flatMap { it.portions }
                 .map { p ->
-                    meals.flatMap { it.portions }.map {
-                        DayNutrientsDto(
-                                p.proteins!!.times(it.weight!!),
-                                p.carbohydrates!!.times(it.weight!!),
-                                p.fats!!.times(it.weight!!),
-                                p.calories!!.times(it.weight!!),
-                                userId,
-                                date)
-                    }
+                    DayNutrientsDto(
+                            p.product!!.proteins!!.times(p.weight!!),
+                            p.product!!.carbohydrates!!.times(p.weight!!),
+                            p.product!!.fats!!.times(p.weight!!),
+                            p.product!!.calories!!.times(p.weight!!),
+                            userId,
+                            date
+                    )
+                }.reduce { acc, el ->
+                    DayNutrientsDto(
+                            acc.proteins + el.proteins,
+                            acc.carbohydrates + el.carbohydrates,
+                            acc.fats + el.fats,
+                            acc.calories + el.calories,
+                            userId,
+                            date
+                    )
                 }
-        return list
+
+//        flatMap
+//                .map { p ->
+//                    meals.flatMap { it.portions }.map {
+//                        DayNutrientsDto(
+//                                p.proteins!!.times(it.weight!!),
+//                                p.carbohydrates!!.times(it.weight!!),
+//                                p.fats!!.times(it.weight!!),
+//                                p.calories!!.times(it.weight!!),
+//                                userId,
+//                                date)
+//                    }
+//                }
+
     }
 
 
