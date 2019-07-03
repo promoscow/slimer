@@ -39,8 +39,8 @@ class MealController @Autowired constructor(val service: MealServiceImpl) {
 
     @GetMapping("/stats")
     fun getStatsByDateForUser(@RequestParam("id") userId: Long,
-                              @RequestParam("/date") date: LocalDate): ResponseEntity<DayNutrientsDto> =
-            ResponseEntity.ok(service.getStatsByDateForUser(userId, date))
+                              @RequestParam("date") date: LocalDate?): ResponseEntity<DayNutrientsDto> =
+            ResponseEntity.ok(service.getStatsByDateForUser(userId, date ?: LocalDate.now()))
 
     @DeleteMapping
     fun delete(@RequestParam(value = "id") id: Long): ResponseEntity<Boolean> = ResponseEntity.ok(service.delete(id))
