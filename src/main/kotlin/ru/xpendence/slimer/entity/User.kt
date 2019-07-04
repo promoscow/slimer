@@ -62,4 +62,8 @@ open class User : AbstractEntity() {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     open var meals: MutableList<Meal> = ArrayList()
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
+    open var workouts: MutableList<Workout> = ArrayList()
 }

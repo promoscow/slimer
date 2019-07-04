@@ -30,6 +30,12 @@ interface ProductRepository : CommonRepository<Product>
 interface PortionRepository : CommonRepository<Portion>
 
 @Repository
+interface ActivityRepository : CommonRepository<Activity>
+
+@Repository
+interface WorkoutRepository : CommonRepository<Workout>
+
+@Repository
 interface MealRepository : CommonRepository<Meal> {
 
     @Query(

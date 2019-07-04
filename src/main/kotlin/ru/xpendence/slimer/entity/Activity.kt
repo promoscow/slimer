@@ -5,7 +5,6 @@ import org.hibernate.annotations.LazyCollectionOption
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import ru.xpendence.slimer.base.ActivityType
-import ru.xpendence.slimer.dto.AbstractDto
 import javax.persistence.*
 
 /**
@@ -23,12 +22,13 @@ open class Activity(
         @Column(name = "name", nullable = false, updatable = false)
         open var name: String,
 
+        @Enumerated(value = EnumType.STRING)
         @Column(name = "type", nullable = false, updatable = false)
-        open var activityType: ActivityType,
+        open var type: ActivityType,
 
         @Column(name = "calories", nullable = false, updatable = false)
         open var calories: Int
-) : AbstractDto() {
+) : AbstractEntity() {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "activity")

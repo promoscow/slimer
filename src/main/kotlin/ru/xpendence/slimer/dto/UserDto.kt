@@ -42,50 +42,5 @@ open class UserDto : AbstractDto() {
 
     open var meals: MutableList<MealDto> = ArrayList()
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        if (!super.equals(other)) return false
-
-        other as UserDto
-
-        if (height != other.height) return false
-        if (weight != other.weight) return false
-        if (age != other.age) return false
-        if (gender != other.gender) return false
-        if (birthDate != other.birthDate) return false
-        if (contacts != other.contacts) return false
-        if (dailyCaloriesIndex != other.dailyCaloriesIndex) return false
-        if (physicalActivityIndex != other.physicalActivityIndex) return false
-        if (bodyMassIndex != other.bodyMassIndex) return false
-        if (bmiCategory != other.bmiCategory) return false
-        if (programs != other.programs) return false
-        if (meals != other.meals) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = super.hashCode()
-        result = 31 * result + (height ?: 0)
-        result = 31 * result + (weight?.hashCode() ?: 0)
-        result = 31 * result + (age ?: 0)
-        result = 31 * result + (gender?.hashCode() ?: 0)
-        result = 31 * result + (birthDate?.hashCode() ?: 0)
-        result = 31 * result + contacts.hashCode()
-        result = 31 * result + (dailyCaloriesIndex ?: 0)
-        result = 31 * result + (physicalActivityIndex?.hashCode() ?: 0)
-        result = 31 * result + (bodyMassIndex?.hashCode() ?: 0)
-        result = 31 * result + (bmiCategory?.hashCode() ?: 0)
-        result = 31 * result + programs.hashCode()
-        result = 31 * result + meals.hashCode()
-        return result
-    }
-
-    override fun toString(): String {
-        return "UserDto(height=$height, weight=$weight, age=$age, gender=$gender, birthDate=$birthDate, " +
-                "contacts=$contacts, dailyCaloriesIndex=$dailyCaloriesIndex, " +
-                "physicalActivityIndex=$physicalActivityIndex, bodyMassIndex=$bodyMassIndex, " +
-                "bmiCategory=$bmiCategory, programs=$programs, meals=$meals)"
-    }
+    open var workouts: MutableList<WorkoutDto> = ArrayList()
 }
