@@ -19,17 +19,17 @@ open class CommonDayStats : AbstractEntity() {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    open val user: User? = null
+    open var user: User? = null
 
     @Column(name = "date", nullable = false)
-    open val date: LocalDate? = null
+    open var date: LocalDate? = null
 
     @Column(name = "is_goal_reached")
-    open val goal: Boolean? = null
+    open var goal: Boolean? = null
 
     @Column(name = "calories_consumed")
-    open val caloriesConsumed: Long? = null
+    open var caloriesConsumed: Long? = null
 
     @Column(name = "calories_burn")
-    open val caloriesBurn: Long? = null
+    open var caloriesBurn: Long? = null
 }

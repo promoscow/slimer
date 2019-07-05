@@ -36,6 +36,9 @@ interface ActivityRepository : CommonRepository<Activity>
 interface WorkoutRepository : CommonRepository<Workout>
 
 @Repository
+interface CommonDayStatsRepository : CommonRepository<CommonDayStats>
+
+@Repository
 interface MealRepository : CommonRepository<Meal> {
 
     @Query(
