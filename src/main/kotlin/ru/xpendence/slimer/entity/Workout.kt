@@ -12,7 +12,10 @@ import javax.persistence.*
  * e-mail: v.chernyshov@pflb.ru
  */
 @Entity
-@Table(name = "workouts")
+@Table(name = "workouts", indexes = [
+    Index(columnList = "user_id", name = "workout_user_index"),
+    Index(columnList = "activity_id", name = "workout_activity_index")
+])
 @SQLDelete(sql = "UPDATE workouts SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class Workout : AbstractEntity() {
