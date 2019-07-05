@@ -12,7 +12,10 @@ import javax.persistence.*
  * e-mail: v.chernyshov@pflb.ru
  */
 @Entity
-@Table(name = "common_day_stats", indexes = [Index(columnList = "user_id", name = "common_day_stats_user_index")])
+@Table(
+        name = "common_day_stats",
+        indexes = [Index(columnList = "user_id", name = "common_day_stats_user_index")],
+        uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "date"])])
 @SQLDelete(sql = "UPDATE common_day_stats SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class CommonDayStats : AbstractEntity() {
