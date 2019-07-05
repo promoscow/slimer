@@ -63,37 +63,39 @@ class ProgramServiceImpl @Autowired constructor(
 
     fun getAllByUser(userId: Long): List<ProgramDto> = repository!!.findAllByUserId(userId).map { mapper!!.toDto(it) }
 
-    fun getTodayCalories(userId: Long): TodayCaloriesDto = TodayCaloriesDto(
-            userId,
-            LocalDate.now(),
-            calculateCalories(userService.get(userId))
-    )
-
-    private fun getUserIdForProgram(dto: ProgramDto): Long = repository!!.getUserIdForProgram(dto.id!!)
-            ?: throw DataAccessException(
-                    StatusCode.DATABASE_ERROR.name,
-                    "No active programs for owner of program ${dto.id}"
+    fun getTodayCalories(userId: Long): TodayCaloriesDto =
+            TodayCaloriesDto(
+                    userId,
+                    LocalDate.now(),
+                    calculateCalories(userService.get(userId))
             )
 
-    private fun getActualInGroupByProgramId(dto: ProgramDto): Program = repository!!.findActualInGroupById(dto.id!!)
-                ?: throw DataAccessException(
-                        StatusCode.DATABASE_ERROR.name,
-                        "No active programs for owner of program ${dto.id}"
-                )
+    private fun getUserIdForProgram(dto: ProgramDto): Long =
+            repository!!.getUserIdForProgram(dto.id!!)
+                    ?: throw DataAccessException(
+                            StatusCode.DATABASE_ERROR.name,
+                            "No active programs for owner of program ${dto.id}"
+                    )
 
-    private fun calculateCalories(userDto: UserDto?): Int {
-        return userDto!!.dailyCaloriesIndex!!.times(
-                (
-                        ProgramType.valueOf(userDto.programs
-                                .sortedBy { it.created }
-                                .findLast { it.actual }
-                                ?.programType
-                                ?: throw NoMatchingValueException(
-                                        StatusCode.DATABASE_ERROR.name,
-                                        "Not found actual programs for user ${userDto.id}"
-                                )).percentage)
-                        .times(100)
-                        .toInt()
-        ).div(100)
-    }
+    private fun getActualInGroupByProgramId(dto: ProgramDto): Program =
+            repository!!.findActualInGroupById(dto.id!!)
+                    ?: throw DataAccessException(
+                            StatusCode.DATABASE_ERROR.name,
+                            "No active programs for owner of program ${dto.id}"
+                    )
+
+    private fun calculateCalories(userDto: UserDto?): Int =
+            userDto!!.dailyCaloriesIndex!!.times(
+                    (
+                            ProgramType.valueOf(userDto.programs
+                                    .sortedBy { it.created }
+                                    .findLast { it.actual }
+                                    ?.programType
+                                    ?: throw NoMatchingValueException(
+                                            StatusCode.DATABASE_ERROR.name,
+                                            "Not found actual programs for user ${userDto.id}"
+                                    )).percentage)
+                            .times(100)
+                            .toInt()
+            ).div(100)
 }

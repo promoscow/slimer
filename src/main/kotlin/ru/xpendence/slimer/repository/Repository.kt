@@ -36,7 +36,14 @@ interface ActivityRepository : CommonRepository<Activity>
 interface WorkoutRepository : CommonRepository<Workout>
 
 @Repository
-interface CommonDayStatsRepository : CommonRepository<CommonDayStats>
+interface CommonDayStatsRepository : CommonRepository<CommonDayStats> {
+
+    @Query(
+            value = "select * from common_day_stats where user_id = :userId and date = :requestedDate",
+            nativeQuery = true
+    )
+    fun getByUserIdAndDate(userId: Long, requestedDate: LocalDate): CommonDayStats?
+}
 
 @Repository
 interface MealRepository : CommonRepository<Meal> {

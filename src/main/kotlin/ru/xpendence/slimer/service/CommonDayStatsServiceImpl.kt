@@ -2,10 +2,13 @@ package ru.xpendence.slimer.service
 
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
+import ru.xpendence.slimer.base.StatusCode
 import ru.xpendence.slimer.dto.CommonDayStatsDto
 import ru.xpendence.slimer.entity.CommonDayStats
+import ru.xpendence.slimer.exceptions.ApiException
 import ru.xpendence.slimer.mapper.CommonDayStatsMapper
 import ru.xpendence.slimer.repository.CommonDayStatsRepository
+import java.time.LocalDate
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -16,4 +19,18 @@ import ru.xpendence.slimer.repository.CommonDayStatsRepository
 @ServiceImpl
 @Service
 class CommonDayStatsServiceImpl
-    : AbstractService<CommonDayStats, CommonDayStatsDto, CommonDayStatsMapper, CommonDayStatsRepository>()
+    : AbstractService<CommonDayStats, CommonDayStatsDto, CommonDayStatsMapper, CommonDayStatsRepository>() {
+
+    fun calculateAndSave(userId: Long) {
+        checkIfStatsExists(userId)
+    }
+
+    private fun checkIfStatsExists(userId: Long) {
+        if (repository!!.getByUserIdAndDate(userId, LocalDate.now().minusDays(1)) != null) {
+            throw ApiException(
+                    StatusCode.BAD_REQUEST.name,
+                    "Stats for user $userId and date ${LocalDate.now().minusDays(1)} already generated"
+            )
+        }
+    }
+}

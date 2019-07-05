@@ -11,3 +11,5 @@ open class CustomException(open val code: String, override val message: String) 
 class DataAccessException(override val code: String, override val message: String) : CustomException(code, message)
 
 class NoMatchingValueException(override val code: String, override val message: String) : CustomException(code, message)
+
+class ApiException(override val code: String, override val message: String) : CustomException(code, message)
