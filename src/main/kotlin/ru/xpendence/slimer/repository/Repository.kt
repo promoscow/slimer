@@ -43,6 +43,12 @@ interface CommonDayStatsRepository : CommonRepository<CommonDayStats> {
             nativeQuery = true
     )
     fun getByUserIdAndDate(userId: Long, requestedDate: LocalDate): CommonDayStats?
+
+    @Query(
+            value = "",
+            nativeQuery = true
+    )
+    fun getCaloriesConsumed(userId: Long, requestedDate: LocalDate)
 }
 
 @Repository

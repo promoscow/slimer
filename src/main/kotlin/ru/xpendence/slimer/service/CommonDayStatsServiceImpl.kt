@@ -1,5 +1,6 @@
 package ru.xpendence.slimer.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.StatusCode
@@ -18,11 +19,13 @@ import java.time.LocalDate
  */
 @ServiceImpl
 @Service
-class CommonDayStatsServiceImpl
+class CommonDayStatsServiceImpl @Autowired constructor(private val mealService: MealServiceImpl)
     : AbstractService<CommonDayStats, CommonDayStatsDto, CommonDayStatsMapper, CommonDayStatsRepository>() {
 
     fun calculateAndSave(userId: Long) {
         checkIfStatsExists(userId)
+        val totalCalories = mealService.getCaloriesByDateForUser(userId, LocalDate.now().minusDays(1))
+
     }
 
     private fun checkIfStatsExists(userId: Long) {

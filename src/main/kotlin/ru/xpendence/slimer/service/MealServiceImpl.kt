@@ -51,4 +51,11 @@ class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepositor
                                 date
                         )
                     }
+
+    fun getCaloriesByDateForUser(userId: Long, date: LocalDate): Int =
+            repository!!.getAllByDateForUser(userId, date)
+                    .also { meals -> if (meals.isEmpty()) return 0 }
+                    .map { mapper!!.toDto(it) }
+                    .flatMap { it.portions }
+                    .sumBy { it.product!!.calories!!.times(it.weight!!).div(100) }
 }

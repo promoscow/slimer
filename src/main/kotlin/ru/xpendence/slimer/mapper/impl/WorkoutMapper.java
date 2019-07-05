@@ -18,13 +18,13 @@ import javax.annotation.PostConstruct;
  */
 @Component
 @Mapper(entity = Workout.class, dto = WorkoutDto.class)
-public class WorkoutDtoMapper extends AbstractMapper<Workout, WorkoutDto> {
+public class WorkoutMapper extends AbstractMapper<Workout, WorkoutDto> {
 
     private final ActivityRepository activityRepository;
     private final UserRepository userRepository;
 
-    public WorkoutDtoMapper(ActivityRepository activityRepository,
-                            UserRepository userRepository) {
+    public WorkoutMapper(ActivityRepository activityRepository,
+                         UserRepository userRepository) {
         this.activityRepository = activityRepository;
         this.userRepository = userRepository;
     }
