@@ -11,7 +11,7 @@ import java.time.LocalDate
 open class WorkoutDto : AbstractDto() {
 
     open var user: Long? = null
-    open var activity: Long? = null
+    open var activity: ActivityDto? = null
     open var duration: Int? = null
     open var date: LocalDate? = null
 

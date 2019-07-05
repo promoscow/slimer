@@ -10,7 +10,7 @@ open class ActivityDto : AbstractDto() {
 
     open var name: String? = null
     open var type: String? = null
-    open var calories: String? = null
+    open var calories: Int? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

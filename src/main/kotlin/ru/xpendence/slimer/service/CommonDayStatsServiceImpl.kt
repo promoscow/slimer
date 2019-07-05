@@ -19,13 +19,22 @@ import java.time.LocalDate
  */
 @ServiceImpl
 @Service
-class CommonDayStatsServiceImpl @Autowired constructor(private val mealService: MealServiceImpl)
+class CommonDayStatsServiceImpl @Autowired constructor(
+        private val mealService: MealServiceImpl,
+        private val workoutService: WorkoutServiceImpl
+)
     : AbstractService<CommonDayStats, CommonDayStatsDto, CommonDayStatsMapper, CommonDayStatsRepository>() {
 
-    fun calculateAndSave(userId: Long) {
+    fun calculateAndSave(userId: Long): CommonDayStatsDto {
         checkIfStatsExists(userId)
         val totalCalories = mealService.getCaloriesByDateForUser(userId, LocalDate.now().minusDays(1))
-
+        val totalBurn = workoutService.getStatsByDateForUser(userId, LocalDate.now().minusDays(1))
+        return repository!!.save(
+                mapper!!.toEntity(
+                        CommonDayStatsDto(
+                                userId,
+                                LocalDate.now().minusDays(1),
+                                true, 0, 0))
     }
 
     private fun checkIfStatsExists(userId: Long) {
