@@ -15,7 +15,7 @@ import ru.xpendence.slimer.service.WorkoutServiceImpl
  * e-mail: 2262288@gmail.com
  */
 @RestController
-@RequestMapping(name = "/workout")
+@RequestMapping("/workout")
 class WorkoutController @Autowired constructor(private val service: WorkoutServiceImpl) {
 
     @PostMapping

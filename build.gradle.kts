@@ -25,10 +25,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    
+    implementation("org.apache.poi:poi-ooxml:3.17")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    
+
     implementation("org.modelmapper:modelmapper:2.3.4")
 
     runtimeOnly("com.h2database:h2")

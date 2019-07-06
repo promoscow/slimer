@@ -15,7 +15,7 @@ import ru.xpendence.slimer.service.CommonDayStatsServiceImpl
  * e-mail: 2262288@gmail.com
  */
 @RestController
-@RequestMapping(name = "/stats")
+@RequestMapping("/stats")
 class CommonDayStatsController @Autowired constructor(private val service: CommonDayStatsServiceImpl) {
 
     @PostMapping
