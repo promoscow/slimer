@@ -21,10 +21,6 @@ import java.time.LocalDate
 class WorkoutServiceImpl @Autowired constructor(private val activityService: ActivityServiceImpl)
     : AbstractService<Workout, WorkoutDto, WorkoutMapper, WorkoutRepository>() {
 
-    override fun preCreate(dto: WorkoutDto?) {
-        val activityDto = activityService.get(dto!!.activity!!)
-    }
-
     fun getStatsByDateForUser(userId: Long, date: LocalDate): DayWorkoutsDto =
             DayWorkoutsDto(
                     userId,
