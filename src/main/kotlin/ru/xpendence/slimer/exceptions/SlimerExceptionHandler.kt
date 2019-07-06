@@ -10,7 +10,7 @@ import ru.xpendence.slimer.dto.AbstractDto
  * Author: Vyacheslav Chernyshov
  * Date: 26.06.19
  * Time: 20:32
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @ControllerAdvice
 class SlimerExceptionHandler : ResponseEntityExceptionHandler() {

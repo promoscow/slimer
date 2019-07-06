@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
  * Author: Vyacheslav Chernyshov
  * Date: 04.07.19
  * Time: 13:21
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Component
 @Mapper(entity = Workout.class, dto = WorkoutDto.class)

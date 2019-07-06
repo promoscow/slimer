@@ -12,7 +12,7 @@ import javax.persistence.*
  * Author: Vyacheslav Chernyshov
  * Date: 28.06.19
  * Time: 14:29
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Entity
 @Table(name = "meals", indexes = [Index(columnList = "user_id", name = "meal_user_index")])

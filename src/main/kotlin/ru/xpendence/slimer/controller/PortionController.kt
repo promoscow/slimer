@@ -12,7 +12,7 @@ import ru.xpendence.slimer.service.PortionServiceImpl
  * Author: Vyacheslav Chernyshov
  * Date: 28.06.19
  * Time: 14:21
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @RestController
 @RequestMapping("/portion")

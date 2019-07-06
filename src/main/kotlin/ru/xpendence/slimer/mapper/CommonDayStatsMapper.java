@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
  * Author: Vyacheslav Chernyshov
  * Date: 05.07.19
  * Time: 8:34
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Component
 @Mapper(entity = CommonDayStats.class, dto = CommonDayStatsDto.class)

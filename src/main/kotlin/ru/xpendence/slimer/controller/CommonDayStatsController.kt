@@ -12,7 +12,7 @@ import ru.xpendence.slimer.service.CommonDayStatsServiceImpl
  * Author: Vyacheslav Chernyshov
  * Date: 05.07.19
  * Time: 8:40
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @RestController
 @RequestMapping(name = "/stats")

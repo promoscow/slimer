@@ -9,7 +9,7 @@ import ru.xpendence.slimer.entity.Program
  * Author: Vyacheslav Chernyshov
  * Date: 05.07.19
  * Time: 23:39
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Repository
 interface ProgramRepository : CommonRepository<Program> {

@@ -11,7 +11,7 @@ import ru.xpendence.slimer.repository.PortionRepository
  * Author: Vyacheslav Chernyshov
  * Date: 28.06.19
  * Time: 14:19
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Service
 @ServiceImpl

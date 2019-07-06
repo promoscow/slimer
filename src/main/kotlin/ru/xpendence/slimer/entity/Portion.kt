@@ -8,7 +8,7 @@ import javax.persistence.*
  * Author: Vyacheslav Chernyshov
  * Date: 28.06.19
  * Time: 14:10
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Entity
 @Table(name = "portions", indexes = [Index(columnList = "meal_id", name = "portion_meal_index")])

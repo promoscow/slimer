@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
  * Author: Vyacheslav Chernyshov
  * Date: 28.06.19
  * Time: 14:42
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Component
 @Mapper(entity = Meal.class, dto = MealDto.class)

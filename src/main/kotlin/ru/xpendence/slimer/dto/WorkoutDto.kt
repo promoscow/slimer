@@ -6,7 +6,7 @@ import java.time.LocalDate
  * Author: Vyacheslav Chernyshov
  * Date: 04.07.19
  * Time: 12:49
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 open class WorkoutDto : AbstractDto() {
 

@@ -6,7 +6,7 @@ import java.time.LocalDate
  * Author: Vyacheslav Chernyshov
  * Date: 30.06.19
  * Time: 18:08
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 data class DayNutrientsDto(val proteins: Double,
                            val carbohydrates: Double,

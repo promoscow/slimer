@@ -4,7 +4,7 @@ package ru.xpendence.slimer.dto
  * Author: Vyacheslav Chernyshov
  * Date: 28.06.19
  * Time: 14:15
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 open class PortionDto : AbstractDto() {
 

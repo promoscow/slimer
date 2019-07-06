@@ -10,7 +10,7 @@ import ru.xpendence.slimer.mapper.AbstractMapper;
  * Author: Vyacheslav Chernyshov
  * Date: 04.07.19
  * Time: 12:58
- * e-mail: v.chernyshov@pflb.ru
+ * e-mail: 2262288@gmail.com
  */
 @Component
 @Mapper(entity = Activity.class, dto = ActivityDto.class)
