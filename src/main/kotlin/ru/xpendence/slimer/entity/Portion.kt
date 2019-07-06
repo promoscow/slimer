@@ -11,7 +11,9 @@ import javax.persistence.*
  * e-mail: 2262288@gmail.com
  */
 @Entity
-@Table(name = "portions", indexes = [Index(columnList = "meal_id", name = "portion_meal_index")])
+@Table(name = "portions", indexes = [
+    Index(columnList = "meal_id", name = "portion_meal_index"),
+    Index(columnList = "product_id", name = "portion_product_id")])
 @SQLDelete(sql = "UPDATE portions SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class Portion : AbstractEntity() {

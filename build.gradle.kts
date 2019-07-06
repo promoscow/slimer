@@ -32,6 +32,8 @@ dependencies {
 
     implementation("org.modelmapper:modelmapper:2.3.4")
 
+    implementation("org.flywaydb:flyway-core:5.2.4")
+
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
     
