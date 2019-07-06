@@ -19,8 +19,8 @@ import ru.xpendence.slimer.service.CommonDayStatsServiceImpl
 class CommonDayStatsController @Autowired constructor(private val service: CommonDayStatsServiceImpl) {
 
     @PostMapping
-    fun create(@RequestBody dto: CommonDayStatsDto?): ResponseEntity<CommonDayStatsDto?> =
-            ResponseEntity.ok(service.save(dto)!!)
+    fun calculateAndSave(@RequestParam(name = "id") userId: Long): ResponseEntity<CommonDayStatsDto> =
+            ResponseEntity.ok(service.calculateAndSave(userId))
 
     @PutMapping
     fun update(@RequestBody dto: CommonDayStatsDto?): ResponseEntity<CommonDayStatsDto?> =
@@ -33,9 +33,6 @@ class CommonDayStatsController @Autowired constructor(private val service: Commo
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<CommonDayStatsDto>> =
             ResponseEntity.ok(service.getAll(pageable))
-
-    fun calculateAndSave(@RequestParam(name = "id") userId: Long): ResponseEntity<CommonDayStatsDto> =
-            ResponseEntity.ok(service.calculateAndSave(userId))
 
     @DeleteMapping
     fun delete(@RequestParam(value = "id") id: Long): ResponseEntity<Boolean> = ResponseEntity.ok(service.delete(id))
