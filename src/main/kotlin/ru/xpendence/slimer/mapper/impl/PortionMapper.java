@@ -32,18 +32,26 @@ public class PortionMapper extends AbstractMapper<Portion, PortionDto> {
     @PostConstruct
     public void init() {
         mapper.createTypeMap(Portion.class, PortionDto.class)
-                .addMappings(m -> m.skip(PortionDto::setMeal)).setPostConverter(toDtoConverter());
+                .addMappings(m -> {
+                    m.skip(PortionDto::setMeal);
+                    m.skip(PortionDto::setProduct);
+                }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(PortionDto.class, Portion.class)
-                .addMappings(m -> m.skip(Portion::setMeal)).setPostConverter(toEntityConverter());
+                .addMappings(m -> {
+                    m.skip(Portion::setMeal);
+                    m.skip(Portion::setProduct);
+                }).setPostConverter(toEntityConverter());
     }
 
     @Override
     protected void mapSpecificFields(Portion source, PortionDto destination) {
         whenNotNull(source.getMeal(), m -> destination.setMeal(m.getId()));
+        whenNotNull(source.getProduct(), p -> destination.setProduct(p.getId()));
     }
 
     @Override
     protected void mapSpecificFields(PortionDto source, Portion destination) {
         whenNotNull(source.getMeal(), m -> destination.setMeal(mealRepository.findById(m).orElse(null)));
+        whenNotNull(source.getProduct(), p -> destination.setProduct(productRepository.findById(p).orElse(null)));
     }
 }

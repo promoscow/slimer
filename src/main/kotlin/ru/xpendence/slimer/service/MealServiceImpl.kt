@@ -1,5 +1,6 @@
 package ru.xpendence.slimer.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.dto.DayNutrientsDto
@@ -17,7 +18,8 @@ import java.time.LocalDate
  */
 @Service
 @ServiceImpl
-class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepository>() {
+class MealServiceImpl @Autowired constructor(private val productService: ProductServiceImpl)
+    : AbstractService<Meal, MealDto, MealMapper, MealRepository>() {
 
     fun getAllByDateForUser(userId: Long, date: LocalDate): List<MealDto> =
             repository!!.getAllByDateForUser(userId, date).map { mapper!!.toDto(it) }
@@ -31,12 +33,13 @@ class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepositor
                     }
                     .map { mapper!!.toDto(it) }
                     .flatMap { it.portions }
-                    .map { p ->
+                    .associate { it to productService.get(it.product!!) }
+                    .map { (k, v) ->
                         DayNutrientsDto(
-                                p.product!!.proteins!!.times(p.weight!!).div(100),
-                                p.product!!.carbohydrates!!.times(p.weight!!).div(100),
-                                p.product!!.fats!!.times(p.weight!!).div(100),
-                                p.product!!.calories!!.times(p.weight!!).div(100),
+                                v!!.proteins!!.times(k.weight!!).div(100),
+                                v.carbohydrates!!.times(k.weight!!).div(100),
+                                v.fats!!.times(k.weight!!).div(100),
+                                v.calories!!.times(k.weight!!).div(100),
                                 userId,
                                 date
                         )
@@ -57,5 +60,8 @@ class MealServiceImpl : AbstractService<Meal, MealDto, MealMapper, MealRepositor
                     .also { meals -> if (meals.isEmpty()) return 0 }
                     .map { mapper!!.toDto(it) }
                     .flatMap { it.portions }
-                    .sumBy { it.product!!.calories!!.times(it.weight!!).div(100) }
+                    .associate { it to productService.get(it.product!!) }
+                    .map { (k, v) -> v!!.calories!!.times(k.weight!!).div(100) }
+                    .sum()
+
 }

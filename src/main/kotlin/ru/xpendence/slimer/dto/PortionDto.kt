@@ -8,7 +8,7 @@ package ru.xpendence.slimer.dto
  */
 open class PortionDto : AbstractDto() {
 
-    open var product: ProductDto? = null
+    open var product: Long? = null
     open var weight: Int? = null
     open var meal: Long? = null
 

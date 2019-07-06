@@ -1,5 +1,6 @@
 package ru.xpendence.slimer.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.dto.DayWorkoutsDto
@@ -17,7 +18,12 @@ import java.time.LocalDate
  */
 @Service
 @ServiceImpl
-class WorkoutServiceImpl : AbstractService<Workout, WorkoutDto, WorkoutMapper, WorkoutRepository>() {
+class WorkoutServiceImpl @Autowired constructor(private val activityService: ActivityServiceImpl)
+    : AbstractService<Workout, WorkoutDto, WorkoutMapper, WorkoutRepository>() {
+
+    override fun preCreate(dto: WorkoutDto?) {
+        val activityDto = activityService.get(dto!!.activity!!)
+    }
 
     fun getStatsByDateForUser(userId: Long, date: LocalDate): DayWorkoutsDto =
             DayWorkoutsDto(
@@ -26,6 +32,8 @@ class WorkoutServiceImpl : AbstractService<Workout, WorkoutDto, WorkoutMapper, W
                     repository!!.getAllByDateForUser(userId, date)
                             .also { w -> if (w.isEmpty()) return DayWorkoutsDto(userId, date, 0) }
                             .map { w -> mapper!!.toDto(w) }
-                            .sumBy { it.activity!!.calories!!.times(it.duration!!).div(60) }
+                            .associate { it to activityService.get(it.activity!!) }
+                            .map { (k, v) -> v!!.calories!!.times(k.duration!!).div(60) }
+                            .sum()
             )
 }
