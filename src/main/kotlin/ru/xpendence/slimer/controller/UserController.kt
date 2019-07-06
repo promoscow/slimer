@@ -25,7 +25,8 @@ class UserController @Autowired constructor(private val service: UserServiceImpl
     fun update(@RequestBody dto: UserDto?): ResponseEntity<UserDto?> = ResponseEntity.ok(service.update(dto)!!)
 
     @GetMapping
-    fun get(@RequestParam("id") id: Long): ResponseEntity<UserDto?> = ResponseEntity.ok(service.get(id)!!)
+    fun get(@RequestParam("id") id: Long): ResponseEntity<UserDto?> =
+            ResponseEntity.ok(service.get(id)!!)
 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<UserDto>> = ResponseEntity.ok(service.getAll(pageable))

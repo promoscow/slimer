@@ -39,14 +39,13 @@ abstract class AbstractService<
 
     override fun update(dto: D?): D? {
         preUpdate(dto)
-        val userParams = repository!!.findById(dto!!.id!!)
-                .orElseThrow {
-                    DataAccessException(StatusCode.DATABASE_ERROR.name, "Entity with id ${dto.id} not found.")
-                }
+        val userParams = repository!!.findByIdOrNull(dto!!.id!!)
+                ?: throw DataAccessException(StatusCode.DATABASE_ERROR.name, "Entity with id ${dto.id} not found.")
         return mapper!!.toDto(repository.save(mapper.toEntity(dto, userParams)!!))
     }
 
-    override fun get(id: Long): D? = mapper!!.toDto(repository!!.findByIdOrNull(id))
+    override fun get(id: Long): D? = mapper!!.toDto(repository!!.findByIdOrNull(id)
+            ?: throw DataAccessException(StatusCode.DATABASE_ERROR.name, "Entity with id $id not found."))
 
     override fun getAll(pageable: Pageable): Page<D> = repository!!.findAll(pageable).map { mapper!!.toDto(it) }
 

@@ -6,9 +6,12 @@ spring:
     username: root
     password: root
 
+  flyway:
+    locations: classpath:db/migration,classpath:db/develop
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate.dialect: org.hibernate.dialect.H2Dialect
