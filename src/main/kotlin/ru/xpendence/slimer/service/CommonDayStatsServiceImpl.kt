@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.StatusCode
 import ru.xpendence.slimer.dto.CommonDayStatsDto
+import ru.xpendence.slimer.dto.of
 import ru.xpendence.slimer.entity.CommonDayStats
 import ru.xpendence.slimer.exceptions.ApiException
 import ru.xpendence.slimer.mapper.CommonDayStatsMapper
@@ -21,21 +22,32 @@ import java.time.LocalDate
 @Service
 class CommonDayStatsServiceImpl @Autowired constructor(
         private val mealService: MealServiceImpl,
-        private val workoutService: WorkoutServiceImpl
-)
-    : AbstractService<CommonDayStats, CommonDayStatsDto, CommonDayStatsMapper, CommonDayStatsRepository>() {
+        private val workoutService: WorkoutServiceImpl,
+        private val programService: ProgramServiceImpl
+) : AbstractService<CommonDayStats, CommonDayStatsDto, CommonDayStatsMapper, CommonDayStatsRepository>() {
 
     fun calculateAndSave(userId: Long): CommonDayStatsDto {
         checkIfStatsExists(userId)
         val totalCalories = mealService.getCaloriesByDateForUser(userId, LocalDate.now().minusDays(1))
-        val totalBurn = workoutService.getStatsByDateForUser(userId, LocalDate.now().minusDays(1))
-        return repository!!.save(
-                mapper!!.toEntity(
-                        CommonDayStatsDto(
-                                userId,
-                                LocalDate.now().minusDays(1),
-                                true, 0, 0))
+        val totalBurn = workoutService.getStatsByDateForUser(userId, LocalDate.now().minusDays(1)).calories
+        val dto = CommonDayStatsDto()
+        return mapper!!.toDto(
+                repository!!.save(
+                        mapper.toEntity(
+                                dto.of(
+                                        userId,
+                                        LocalDate.now().minusDays(1),
+                                        isGoalReached(userId, totalCalories, totalBurn),
+                                        totalCalories,
+                                        totalBurn
+                                )
+                        )
+                )
+        )
     }
+
+    private fun isGoalReached(userId: Long, totalCalories: Int, totalBurn: Int) =
+            programService.getCaloriesByDate(userId, LocalDate.now().minusDays(1)).calories > (totalCalories - totalBurn)
 
     private fun checkIfStatsExists(userId: Long) {
         if (repository!!.getByUserIdAndDate(userId, LocalDate.now().minusDays(1)) != null) {

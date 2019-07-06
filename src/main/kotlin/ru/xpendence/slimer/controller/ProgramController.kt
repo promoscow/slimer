@@ -10,6 +10,7 @@ import ru.xpendence.slimer.dto.ProgramDto
 import ru.xpendence.slimer.dto.TodayCaloriesDto
 import ru.xpendence.slimer.dto.validation.Validate
 import ru.xpendence.slimer.service.ProgramServiceImpl
+import java.time.LocalDate
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -41,9 +42,10 @@ class ProgramController @Autowired constructor(val service: ProgramServiceImpl) 
     fun getActualByUser(@RequestParam(value = "userId") userId: Long): ResponseEntity<ProgramDto> =
             ResponseEntity.ok(service.getActualByUser(userId))
 
-    @GetMapping("/today")
-    fun getTodayCalories(@RequestParam(value = "id") id: Long): ResponseEntity<TodayCaloriesDto> =
-            ResponseEntity.ok(service.getTodayCalories(id))
+    @GetMapping("/date")
+    fun getTodayCalories(@RequestParam(value = "id") id: Long,
+                         @RequestParam(value = "date") date: LocalDate): ResponseEntity<TodayCaloriesDto> =
+            ResponseEntity.ok(service.getCaloriesByDate(id, date ?: LocalDate.now()))
 
     @GetMapping("/all")
     fun getAll(pageable: Pageable): ResponseEntity<Page<ProgramDto>> = ResponseEntity.ok(service.getAll(pageable))

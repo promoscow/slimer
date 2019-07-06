@@ -13,8 +13,8 @@ open class CommonDayStatsDto : AbstractDto() {
     open var user: Long? = null
     open var date: LocalDate? = null
     open var goal: Boolean? = null
-    open var caloriesConsumed: Long? = null
-    open var caloriesBurn: Long? = null
+    open var caloriesConsumed: Int? = null
+    open var caloriesBurn: Int? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -46,4 +46,17 @@ open class CommonDayStatsDto : AbstractDto() {
         return "CommonDayStatsDto(user=$user, date=$date, goal=$goal, caloriesConsumed=$caloriesConsumed, " +
                 "caloriesBurn=$caloriesBurn)"
     }
+}
+
+fun CommonDayStatsDto.of(user: Long,
+                         date: LocalDate,
+                         goal: Boolean,
+                         caloriesConsumed: Int,
+                         caloriesBurn: Int): CommonDayStatsDto {
+    this.user = user
+    this.date = date
+    this.goal = goal
+    this.caloriesConsumed = caloriesConsumed
+    this.caloriesBurn = caloriesBurn
+    return this
 }

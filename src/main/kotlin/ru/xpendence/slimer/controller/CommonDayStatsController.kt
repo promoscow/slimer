@@ -34,6 +34,9 @@ class CommonDayStatsController @Autowired constructor(private val service: Commo
     fun getAll(pageable: Pageable): ResponseEntity<Page<CommonDayStatsDto>> =
             ResponseEntity.ok(service.getAll(pageable))
 
+    fun calculateAndSave(@RequestParam(name = "id") userId: Long): ResponseEntity<CommonDayStatsDto> =
+            ResponseEntity.ok(service.calculateAndSave(userId))
+
     @DeleteMapping
     fun delete(@RequestParam(value = "id") id: Long): ResponseEntity<Boolean> = ResponseEntity.ok(service.delete(id))
 }
