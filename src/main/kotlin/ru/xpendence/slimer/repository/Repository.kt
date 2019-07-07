@@ -18,9 +18,6 @@ interface CommonRepository<E : AbstractEntity> : JpaRepository<E, Long>
 interface UserRepository : CommonRepository<User>
 
 @Repository
-interface ContactRepository : CommonRepository<Contact>
-
-@Repository
 interface ProductRepository : CommonRepository<Product>
 
 @Repository

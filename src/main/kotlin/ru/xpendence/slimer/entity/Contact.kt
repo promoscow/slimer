@@ -25,4 +25,7 @@ open class Contact : AbstractEntity() {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     open var user: User? = null
+
+    @Column(name = "is_default")
+    open var default: Boolean = false
 }
