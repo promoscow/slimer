@@ -42,7 +42,7 @@ class SlimerExceptionHandler : ResponseEntityExceptionHandler() {
             ResponseEntity(
                     AbstractDto(
                             StatusCode.BAD_REQUEST.name,
-                            format(ex.bindingResult.fieldErrors.map { it.defaultMessage ?: "field not matches" })
+                            ex.bindingResult.fieldErrors.map { e -> "${e.field}: ${e.defaultMessage}" }.toString()
                     ),
                     HttpStatus.BAD_REQUEST
             )

@@ -17,22 +17,22 @@ open class ContactDto : AbstractDto() {
     @Pattern(
             regexp = "^[9]\\d{9}$",
             groups = [Validate.Create::class, Validate.Update::class],
-            message = "phone field not matches as valid phone number"
+            message = "field not matches as valid"
     )
-    @NotNull(groups = [Validate.Create::class], message = "phone number can not be null")
+    @NotNull(groups = [Validate.Create::class], message = "field can not be null")
     open var phone: String? = null
 
     @Email(
             groups = [Validate.Create::class, Validate.Update::class],
-            message = "email field not matches as valid email"
+            message = "field not matches as valid"
     )
-    @NotNull(groups = [Validate.Create::class], message = "email can not be null")
+    @NotNull(groups = [Validate.Create::class], message = "field can not be null")
     open var email: String? = null
 
-    @NotNull
+    @NotNull(message = "field can not be null")
     open var user: Long? = null
 
-    @Null(groups = [Validate.Create::class])
+    @Null(groups = [Validate.Create::class], message = "field must be null")
     open var default: Boolean? = null
 
     override fun equals(other: Any?): Boolean {
