@@ -38,8 +38,24 @@ class SlimerExceptionHandler : ResponseEntityExceptionHandler() {
     override fun handleMethodArgumentNotValid(ex: MethodArgumentNotValidException,
                                               headers: HttpHeaders,
                                               status: HttpStatus,
-                                              request: WebRequest): ResponseEntity<Any> {
-        val fieldsErrors = ex.bindingResult.fieldErrors
-        return ResponseEntity.ok(AbstractDto())
-    }
+                                              request: WebRequest): ResponseEntity<Any> =
+            ResponseEntity(
+                    AbstractDto(
+                            StatusCode.BAD_REQUEST.name,
+                            format(ex.bindingResult.fieldErrors.map { it.defaultMessage ?: "field not matches" })
+                    ),
+                    HttpStatus.BAD_REQUEST
+            )
+}
+
+fun format(
+        errors: List<String>,
+        separator: String = ", ",
+        prefix: String = "incorrect dto: ",
+        postfix: String = ""
+): String {
+    var result = prefix
+    errors.map { a -> result = result + a + separator }
+    result += postfix
+    return result
 }
