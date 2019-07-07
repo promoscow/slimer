@@ -48,6 +48,6 @@ public class ContactMapper extends AbstractMapper<Contact, ContactDto> {
     @Override
     protected void mapSpecificFields(ContactDto source, Contact destination) {
         whenNotNull(source.getUser(), u -> destination.setUser(userRepository.findById(u).orElse(null)));
-        whenNotNull(source.getPhone(), p -> destination.setPhone(Integer.parseInt(p)));
+        whenNotNull(source.getPhone(), p -> destination.setPhone(Long.parseLong(p)));
     }
 }

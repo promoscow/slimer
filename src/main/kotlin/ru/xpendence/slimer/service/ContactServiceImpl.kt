@@ -22,7 +22,7 @@ class ContactServiceImpl : AbstractService<Contact, ContactDto, ContactMapper, C
     }
 
     override fun preUpdate(dto: ContactDto?) {
-        if (dto!!.default) {
+        if (dto!!.default == true) {
             val defaultContact = repository!!.getFirstByUserIdAndDefault(dto.user!!, true) ?: return
             defaultContact.default = false
             repository.save(defaultContact)
