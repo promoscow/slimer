@@ -3,6 +3,7 @@ package ru.xpendence.slimer.dto
 import ru.xpendence.slimer.dto.validation.Validate
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Null
+import javax.validation.constraints.Pattern
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -12,10 +13,19 @@ import javax.validation.constraints.Null
  */
 open class ContactDto: AbstractDto() {
 
-    @NotNull(groups = [Validate.Create::class])
+    @Pattern(
+            regexp = "^[9]\\d{9}$",
+            groups = [Validate.Create::class, Validate.Update::class],
+            message = "phone field not matches as valid phone number")
+    @NotNull(groups = [Validate.Create::class], message = "phone number can not be null")
     open var phone: String? = null
 
-    @NotNull(groups = [Validate.Create::class])
+    @Pattern(
+            regexp = "^([\\w-_.]*[\\w]){3,15}@[\\w]+\\.[\\w]{2,5}\$",
+            groups = [Validate.Create::class, Validate.Update::class],
+            message = "email field not matches as valid email"
+    )
+    @NotNull(groups = [Validate.Create::class], message = "email can not be null")
     open var email: String? = null
 
     @NotNull

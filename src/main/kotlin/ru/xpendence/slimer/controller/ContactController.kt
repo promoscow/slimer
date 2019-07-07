@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import ru.xpendence.slimer.dto.ContactDto
+import ru.xpendence.slimer.dto.validation.Validate
 import ru.xpendence.slimer.service.ContactServiceImpl
 
 /**
@@ -19,10 +21,10 @@ import ru.xpendence.slimer.service.ContactServiceImpl
 class ContactController @Autowired constructor(private val service: ContactServiceImpl) {
 
     @PostMapping
-    fun create(@RequestBody dto: ContactDto?): ResponseEntity<ContactDto?> = ResponseEntity.ok(service.save(dto)!!)
+    fun create(@Validated(value = [Validate.Create::class]) @RequestBody dto: ContactDto?): ResponseEntity<ContactDto?> = ResponseEntity.ok(service.save(dto)!!)
 
     @PutMapping
-    fun update(@RequestBody dto: ContactDto?): ResponseEntity<ContactDto?> = ResponseEntity.ok(service.update(dto)!!)
+    fun update(@Validated(value = [Validate.Update::class]) @RequestBody dto: ContactDto?): ResponseEntity<ContactDto?> = ResponseEntity.ok(service.update(dto)!!)
 
     @GetMapping
     fun get(@RequestParam("id") id: Long): ResponseEntity<ContactDto?> = ResponseEntity.ok(service.get(id)!!)

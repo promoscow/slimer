@@ -17,7 +17,7 @@ import javax.persistence.*
 open class Contact : AbstractEntity() {
 
     @Column(name = "phone")
-    open var phone: String? = null
+    open var phone: Int? = null
 
     @Column
     open var email: String? = null

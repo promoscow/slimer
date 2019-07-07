@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import ru.xpendence.slimer.dto.UserDto
+import ru.xpendence.slimer.dto.validation.Validate
 import ru.xpendence.slimer.service.UserServiceImpl
 
 /**
@@ -19,10 +21,10 @@ import ru.xpendence.slimer.service.UserServiceImpl
 class UserController @Autowired constructor(private val service: UserServiceImpl) {
 
     @PostMapping
-    fun create(@RequestBody dto: UserDto?): ResponseEntity<UserDto?> = ResponseEntity.ok(service.save(dto)!!)
+    fun create(@Validated(value = [Validate.Create::class]) @RequestBody dto: UserDto?): ResponseEntity<UserDto?> = ResponseEntity.ok(service.save(dto)!!)
 
     @PutMapping
-    fun update(@RequestBody dto: UserDto?): ResponseEntity<UserDto?> = ResponseEntity.ok(service.update(dto)!!)
+    fun update(@Validated(value = [Validate.Update::class]) @RequestBody dto: UserDto?): ResponseEntity<UserDto?> = ResponseEntity.ok(service.update(dto)!!)
 
     @GetMapping
     fun get(@RequestParam("id") id: Long): ResponseEntity<UserDto?> =

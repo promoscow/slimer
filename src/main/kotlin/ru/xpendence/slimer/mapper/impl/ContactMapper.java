@@ -28,18 +28,26 @@ public class ContactMapper extends AbstractMapper<Contact, ContactDto> {
     @PostConstruct
     public void init() {
         mapper.createTypeMap(Contact.class, ContactDto.class)
-                .addMappings(m -> m.skip(ContactDto::setUser)).setPostConverter(toDtoConverter());
+                .addMappings(m -> {
+                    m.skip(ContactDto::setUser);
+                    m.skip(ContactDto::setPhone);
+                }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(ContactDto.class, Contact.class)
-                .addMappings(m -> m.skip(Contact::setUser)).setPostConverter(toEntityConverter());
+                .addMappings(m -> {
+                    m.skip(Contact::setUser);
+                    m.skip(Contact::setPhone);
+                }).setPostConverter(toEntityConverter());
     }
 
     @Override
     protected void mapSpecificFields(Contact source, ContactDto destination) {
         whenNotNull(source.getUser(), u -> destination.setUser(u.getId()));
+        whenNotNull(source.getPhone(), p -> destination.setPhone(p.toString()));
     }
 
     @Override
     protected void mapSpecificFields(ContactDto source, Contact destination) {
         whenNotNull(source.getUser(), u -> destination.setUser(userRepository.findById(u).orElse(null)));
+        whenNotNull(source.getPhone(), p -> destination.setPhone(Integer.parseInt(p)));
     }
 }

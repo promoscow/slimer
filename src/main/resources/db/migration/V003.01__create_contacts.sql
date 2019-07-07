@@ -6,7 +6,7 @@ create table contacts
     created    datetime     not null,
     updated    datetime     null,
     email      varchar(255) null,
-    phone      varchar(255) null,
+    phone      int          null,
     user_id    bigint       not null,
     is_default bit          null
 );
