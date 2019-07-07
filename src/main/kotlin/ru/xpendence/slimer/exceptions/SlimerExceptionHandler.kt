@@ -47,15 +47,3 @@ class SlimerExceptionHandler : ResponseEntityExceptionHandler() {
                     HttpStatus.BAD_REQUEST
             )
 }
-
-fun format(
-        errors: List<String>,
-        separator: String = ", ",
-        prefix: String = "incorrect dto: ",
-        postfix: String = ""
-): String {
-    var result = prefix
-    errors.map { a -> result = result + a + separator }
-    result += postfix
-    return result
-}
