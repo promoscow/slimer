@@ -6,7 +6,6 @@ import ru.xpendence.slimer.dto.ContactDto
 import ru.xpendence.slimer.entity.Contact
 import ru.xpendence.slimer.mapper.impl.ContactMapper
 import ru.xpendence.slimer.repository.ContactRepository
-import java.util.stream.Collectors
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -24,10 +23,9 @@ class ContactServiceImpl : AbstractService<Contact, ContactDto, ContactMapper, C
 
     override fun preUpdate(dto: ContactDto?) {
         if (dto!!.default) {
-            repository!!.saveAll(repository.getAllByUserId(dto.user!!)
-                    .stream()
-                    .peek { it.default = false }
-                    .collect(Collectors.toList()))
+            val defaultContact = repository!!.getFirstByUserIdAndDefault(dto.user!!, true) ?: return
+            defaultContact.default = false
+            repository.save(defaultContact)
         }
     }
 }

@@ -13,4 +13,6 @@ import ru.xpendence.slimer.entity.Contact
 interface ContactRepository : CommonRepository<Contact> {
 
     fun getAllByUserId(userId: Long): List<Contact>
+
+    fun getFirstByUserIdAndDefault(userId: Long, default: Boolean): Contact?
 }
