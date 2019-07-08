@@ -33,6 +33,7 @@ class ActivityMapperTest : AbstractTest() {
     @Test
     fun toDto() {
         val result = activityMapper.toDto(activity)
+
         Assert.assertEquals(activity!!.name, result.name)
         Assert.assertEquals(activity!!.type.name, result.type)
         Assert.assertEquals(activity!!.calories, result.calories)
