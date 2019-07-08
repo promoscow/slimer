@@ -37,6 +37,4 @@ open class ActivityDto : AbstractDto() {
     override fun toString(): String {
         return "ActivityDto(name=$name, type=$type, calories=$calories)"
     }
-
-
 }
