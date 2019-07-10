@@ -38,4 +38,9 @@ class ActivityMapperTest : AbstractTest() {
         Assert.assertEquals(activity!!.type.name, result.type)
         Assert.assertEquals(activity!!.calories, result.calories)
     }
+
+    @Test
+    fun toEntity() {
+
+    }
 }
