@@ -6,6 +6,7 @@ import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import ru.xpendence.slimer.AbstractTest
 import ru.xpendence.slimer.base.ActivityType
+import ru.xpendence.slimer.dto.ActivityDto
 import ru.xpendence.slimer.entity.Activity
 import ru.xpendence.slimer.repository.ActivityRepository
 
@@ -24,10 +25,12 @@ class ActivityMapperTest : AbstractTest() {
     private lateinit var activityRepository: ActivityRepository
 
     private var activity: Activity? = null
+    private var activityDto: ActivityDto? = null
 
     @Before
     fun init() {
         activity = activityRepository.save(Activity("Хлеб", ActivityType.ENTERTAINMENT, 100))
+        activityDto = ActivityDto("Макароны2", "ENTERTAINMENT", 100)
     }
 
     @Test
@@ -41,6 +44,11 @@ class ActivityMapperTest : AbstractTest() {
 
     @Test
     fun toEntity() {
+        val result = activityMapper.toEntity(activityDto)
+
+        Assert.assertEquals(activityDto!!.name, result.name)
+        Assert.assertEquals(activityDto!!.type, result.type.name)
+        Assert.assertEquals(activityDto!!.calories, result.calories)
 
     }
 }

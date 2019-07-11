@@ -6,11 +6,18 @@ package ru.xpendence.slimer.dto
  * Time: 12:44
  * e-mail: 2262288@gmail.com
  */
-open class ActivityDto : AbstractDto() {
+open class ActivityDto() : AbstractDto() {
 
-    open var name: String? = null
-    open var type: String? = null
-    open var calories: Int? = null
+    var name: String? = null
+    var type: String? = null
+    var calories: Int? = null
+
+    constructor(name: String?, type: String?, calories: Int?) : this() {
+        this.name = name
+        this.type = type
+        this.calories = calories
+    }
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
