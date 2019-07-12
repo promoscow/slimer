@@ -41,6 +41,7 @@ open class User : AbstractEntity() {
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     open var contacts: MutableList<Contact> = ArrayList()
 
+    //todo почему Double?
     @Column(name = "dci", nullable = false)
     open var dailyCaloriesIndex: Double? = null
 

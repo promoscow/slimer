@@ -19,23 +19,23 @@ import ru.xpendence.slimer.repository.ActivityRepository
 class ActivityMapperTest : AbstractTest() {
 
     @Autowired
-    private lateinit var activityMapper: ActivityMapper
+    private lateinit var mapper: ActivityMapper
 
     @Autowired
-    private lateinit var activityRepository: ActivityRepository
+    private lateinit var repository: ActivityRepository
 
     private var activity: Activity? = null
     private var activityDto: ActivityDto? = null
 
     @Before
     fun init() {
-        activity = activityRepository.save(Activity("Хлеб", ActivityType.ENTERTAINMENT, 100))
-        activityDto = ActivityDto("Макароны2", "ENTERTAINMENT", 100)
+        activity = repository.save(Activity("Передвижения боком", ActivityType.ENTERTAINMENT, 100))
+        activityDto = ActivityDto("Сидение на дереве", "ENTERTAINMENT", 100)
     }
 
     @Test
     fun toDto() {
-        val result = activityMapper.toDto(activity)
+        val result = mapper.toDto(activity)
 
         Assert.assertEquals(activity!!.name, result.name)
         Assert.assertEquals(activity!!.type.name, result.type)
@@ -44,7 +44,7 @@ class ActivityMapperTest : AbstractTest() {
 
     @Test
     fun toEntity() {
-        val result = activityMapper.toEntity(activityDto)
+        val result = mapper.toEntity(activityDto)
 
         Assert.assertEquals(activityDto!!.name, result.name)
         Assert.assertEquals(activityDto!!.type, result.type.name)
