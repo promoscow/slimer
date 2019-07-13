@@ -1,6 +1,5 @@
 package ru.xpendence.slimer.service
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.RoleType
@@ -10,7 +9,6 @@ import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.entity.User
 import ru.xpendence.slimer.exceptions.DataAccessException
 import ru.xpendence.slimer.mapper.impl.UserMapper
-import ru.xpendence.slimer.repository.RoleRepository
 import ru.xpendence.slimer.repository.UserRepository
 import ru.xpendence.slimer.util.*
 
@@ -22,8 +20,7 @@ import ru.xpendence.slimer.util.*
  */
 @Service
 @ServiceImpl
-class UserServiceImpl @Autowired constructor(roleRepository: RoleRepository)
-    : AbstractService<User, UserDto, UserMapper, UserRepository>() {
+class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepository>() {
     override val log = logger<UserServiceImpl>()
 
     override fun update(dto: UserDto?): UserDto? {
@@ -66,4 +63,6 @@ class UserServiceImpl @Autowired constructor(roleRepository: RoleRepository)
         dto.bmiCategory = dto.defineBmiCategory()
         log.info("BMI category defined: ${dto.bmiCategory} for ${dto.hashCode()}")
     }
+
+    fun findByLogin(userName: String) = repository!!.findByLogin(userName)
 }
