@@ -22,6 +22,18 @@ import javax.persistence.*
 @Where(clause = "active=1")
 open class User : AbstractEntity() {
 
+    @Column(name = "login", nullable = false, updatable = false)
+    open var login: String? = null
+
+    @Column(name = "password", nullable = false)
+    open var password: String? = null
+
+    @Column(name = "first_name")
+    open var firstName: String? = null
+
+    @Column(name = "last_name")
+    open var lastName: String? = null
+
     @Column(name = "height")
     open var height: Int? = null
 
@@ -67,4 +79,12 @@ open class User : AbstractEntity() {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
     open var workouts: MutableList<Workout> = ArrayList()
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+            inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
+    )
+    open var roles: MutableList<Role> = ArrayList()
 }

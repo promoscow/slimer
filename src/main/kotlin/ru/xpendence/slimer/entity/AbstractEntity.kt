@@ -24,7 +24,7 @@ open class AbstractEntity : Serializable {
     @Column(name = "updated", insertable = false)
     open var updated: LocalDateTime? = null
 
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     open var active: Active = Active.ENABLED
 
     @PrePersist

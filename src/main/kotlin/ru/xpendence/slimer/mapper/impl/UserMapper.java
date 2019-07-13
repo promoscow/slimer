@@ -7,9 +7,11 @@ import ru.xpendence.slimer.base.PAI;
 import ru.xpendence.slimer.dto.UserDto;
 import ru.xpendence.slimer.entity.User;
 import ru.xpendence.slimer.mapper.AbstractMapper;
+import ru.xpendence.slimer.repository.RoleRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -21,17 +23,25 @@ import java.util.Map;
 @Mapper(entity = User.class, dto = UserDto.class)
 public class UserMapper extends AbstractMapper<User, UserDto> {
 
+    private final RoleRepository roleRepository;
+
+    public UserMapper(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
     @PostConstruct
     public void init() {
         mapper.createTypeMap(User.class, UserDto.class)
                 .addMappings(m -> {
                     m.skip(UserDto::setPhysicalActivityIndex);
                     m.skip(UserDto::setBmiCategory);
+                    m.skip(UserDto::setRoles);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(UserDto.class, User.class)
                 .addMappings(m -> {
                     m.skip(User::setPhysicalActivityIndex);
                     m.skip(User::setBmiCategory);
+                    m.skip(User::setRoles);
                 }).setPostConverter(toEntityConverter());
     }
 
@@ -44,6 +54,7 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
                 )
         );
         whenNotNull(source.getBmiCategory(), c -> destination.setBmiCategory(c.name()));
+        destination.setRoles(source.getRoles().stream().map(r -> r.getRole().name()).collect(Collectors.toList()));
     }
 
     @Override
@@ -58,5 +69,6 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
                 )
         );
         whenNotNull(source.getBmiCategory(), c -> destination.setBmiCategory(BmiCategory.valueOf(c)));
+        destination.setRoles(roleRepository.findAllByRoleIn(source.getRoles()));
     }
 }

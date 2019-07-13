@@ -1,8 +1,8 @@
 INSERT INTO users
-VALUES (1, 1, '2019-06-29 10:12:04', NULL, 36, '1982-07-14', 'NORMAL', 22.3, 2172, 1, 180, 'VERY_LOW', 72.1),
-       (2, 1, '2019-07-06 19:29:31', NULL, 43, '1976-04-10', 'EXCESS', 25.8, 2516, 1, 183, 'LOW', 86.4),
-       (3, 1, '2019-07-06 19:30:24', NULL, 19, '1999-11-30', 'NORMAL', 21.7, 2530, 0, 168, 'HIGH', 61.2),
-       (4, 1, '2019-07-06 19:31:13', NULL, 25, '1993-10-10', 'NORMAL', 21.5, 2278, 0, 172, 'AVERAGE', 63.5),
-       (5, 1, '2019-07-06 19:32:06', NULL, 30, '1989-01-13', 'EXCESS', 25.6, 3396, 1, 192, 'AVERAGE', 94.3),
-       (6, 1, '2019-07-06 19:32:50', NULL, 35, '1984-06-09', 'NORMAL', 22.6, 2462, 1, 185, 'LOW', 77.3),
-       (7, 1, '2019-07-06 19:33:22', NULL, 36, '1982-08-19', 'NORMAL', 18.9, 2698, 1, 182, 'AVERAGE', 62.5);
+VALUES (1, 1, '2019-06-29 10:12:04', NULL, 'kitty', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Luke', 'Skywalker', 36, '1982-07-14', 'NORMAL', 22.3, 2172, 1, 180, 'VERY_LOW', 72.1),
+       (2, 1, '2019-07-06 19:29:31', NULL, 'mouse', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Han', 'Solo', 43, '1976-04-10', 'EXCESS', 25.8, 2516, 1, 183, 'LOW', 86.4),
+       (3, 1, '2019-07-06 19:30:24', NULL, 'doggy', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Leya', 'Organa', 19, '1999-11-30', 'NORMAL', 21.7, 2530, 0, 168, 'HIGH', 61.2),
+       (4, 1, '2019-07-06 19:31:13', NULL, 'batty', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Darth', 'Vader', 25, '1993-10-10', 'NORMAL', 21.5, 2278, 0, 172, 'AVERAGE', 63.5),
+       (5, 1, '2019-07-06 19:32:06', NULL, 'horse', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Boba', 'Fett', 30, '1989-01-13', 'EXCESS', 25.6, 3396, 1, 192, 'AVERAGE', 94.3),
+       (6, 1, '2019-07-06 19:32:50', NULL, 'johny', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Kylo', 'Ren', 35, '1984-06-09', 'NORMAL', 22.6, 2462, 1, 185, 'LOW', 77.3),
+       (7, 1, '2019-07-06 19:33:22', NULL, 'jacky', '$2a$10$E.kvcHhzsiBzKW/tNpGsye4RtguiizS.8eSVqEtw19iJYYJ6apIti', 'Darth', 'Maul', 36, '1982-08-19', 'NORMAL', 18.9, 2698, 1, 182, 'AVERAGE', 62.5);

@@ -15,6 +15,19 @@ import javax.validation.constraints.Null
 open class UserDto : AbstractDto() {
 
     @NotNull(groups = [Validate.Create::class])
+    @Null(groups = [Validate.Update::class])
+    open var login: String? = null
+
+    @NotNull(groups = [Validate.Create::class])
+    open var password: String? = null
+
+    @NotNull(groups = [Validate.Create::class])
+    open var firstName: String? = null
+
+    @NotNull(groups = [Validate.Create::class])
+    open var lastName: String? = null
+
+    @NotNull(groups = [Validate.Create::class])
     open var height: Int? = null
 
     @NotNull(groups = [Validate.Create::class])
@@ -52,4 +65,7 @@ open class UserDto : AbstractDto() {
 
     @Null
     open var workouts: MutableList<WorkoutDto> = ArrayList()
+
+    @Null
+    open var roles: MutableList<String> = ArrayList()
 }
