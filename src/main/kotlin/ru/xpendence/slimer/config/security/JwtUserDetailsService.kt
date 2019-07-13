@@ -1,6 +1,7 @@
 package ru.xpendence.slimer.config.security
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -15,6 +16,7 @@ import ru.xpendence.slimer.service.UserServiceImpl
  * e-mail: v.chernyshov@pflb.ru
  */
 @Component
+@Qualifier("jwtUserDetailsService")
 class JwtUserDetailsService : UserDetailsService {
 
     @Autowired

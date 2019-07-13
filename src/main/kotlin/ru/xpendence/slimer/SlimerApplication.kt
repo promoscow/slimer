@@ -6,10 +6,13 @@ import org.modelmapper.convention.MatchingStrategies
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.PropertySource
+import org.springframework.context.annotation.PropertySources
 import org.springframework.scheduling.annotation.EnableScheduling
 
 @SpringBootApplication
 @EnableScheduling
+@PropertySources(PropertySource("classpath:security.properties"))
 class SlimerApplication {
     @Bean
     fun modelMapper(): ModelMapper {

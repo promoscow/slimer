@@ -1,5 +1,7 @@
 package ru.xpendence.slimer.exceptions
 
+import org.springframework.security.core.AuthenticationException
+
 /**
  * Author: Vyacheslav Chernyshov
  * Date: 2019-06-09
@@ -13,3 +15,5 @@ class DataAccessException(override val code: String, override val message: Strin
 class NoMatchingValueException(override val code: String, override val message: String) : CustomException(code, message)
 
 class ApiException(override val code: String, override val message: String) : CustomException(code, message)
+
+class JwtAuthenticationException(override val message: String) : AuthenticationException(message)
