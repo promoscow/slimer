@@ -17,12 +17,12 @@ import javax.persistence.*
  * e-mail: 2262288@gmail.com
  */
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = [Index(columnList = "login", name = "user_login_index")])
 @SQLDelete(sql = "UPDATE users SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class User : AbstractEntity() {
 
-    @Column(name = "login", nullable = false, updatable = false)
+    @Column(name = "login", nullable = false, updatable = false, unique = true)
     open var login: String? = null
 
     @Column(name = "password", nullable = false)

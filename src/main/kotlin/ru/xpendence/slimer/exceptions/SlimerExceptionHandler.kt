@@ -3,6 +3,7 @@ package ru.xpendence.slimer.exceptions
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -21,8 +22,28 @@ import ru.xpendence.slimer.dto.AbstractDto
 @ControllerAdvice
 class SlimerExceptionHandler : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler(value = [CustomException::class])
-    fun handle(exception: CustomException): ResponseEntity<AbstractDto> = ResponseEntity.ok(AbstractDto(exception.code, exception.message))
+    @ExceptionHandler(value = [DataAccessException::class])
+    fun handle(exception: DataAccessException): ResponseEntity<AbstractDto> =
+            ResponseEntity.ok(AbstractDto(exception.code, exception.message))
+
+    @ExceptionHandler(value = [NoMatchingValueException::class])
+    fun handle(exception: NoMatchingValueException): ResponseEntity<AbstractDto> =
+            ResponseEntity.ok(AbstractDto(exception.code, exception.message))
+
+    @ExceptionHandler(value = [ApiException::class])
+    fun handle(exception: ApiException): ResponseEntity<AbstractDto> =
+            ResponseEntity.ok(AbstractDto(exception.code, exception.message))
+
+    @ExceptionHandler(value = [JwtAuthenticationException::class])
+    fun handle(exception: JwtAuthenticationException): ResponseEntity<AbstractDto> =
+            ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(AbstractDto(StatusCode.UNAUTHORIZED.name, exception.message))
+
+    @ExceptionHandler(value = [AccessDeniedException::class])
+    fun handle(exception: AccessDeniedException): ResponseEntity<AbstractDto> =
+            ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(AbstractDto(StatusCode.ACCESS_DENIED.name, exception.message!!))
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

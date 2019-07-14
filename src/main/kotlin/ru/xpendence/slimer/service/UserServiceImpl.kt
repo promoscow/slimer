@@ -1,5 +1,7 @@
 package ru.xpendence.slimer.service
 
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.RoleType
@@ -20,7 +22,9 @@ import ru.xpendence.slimer.util.*
  */
 @Service
 @ServiceImpl
-class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepository>() {
+class UserServiceImpl @Autowired constructor(private val encoder: BCryptPasswordEncoder)
+    : AbstractService<User, UserDto, UserMapper, UserRepository>() {
+
     override val log = logger<UserServiceImpl>()
 
     override fun update(dto: UserDto?): UserDto? {
@@ -44,12 +48,9 @@ class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepositor
         return mapper!!.toDto(repository.save(mapper.toEntity(dto)))
     }
 
-    override fun validate(dto: UserDto?) {
-
-    }
-
     override fun preCreate(dto: UserDto?) {
-        dto!!.roles.add(RoleType.GUEST.name)
+        if (dto!!.password != null) dto.password = encode(dto.password!!)
+        dto.roles.add(RoleType.GUEST.name)
 
         dto.age = dto.calculateAge()
         log.info("age calculated: ${dto.age} for dto ${dto.hashCode()}")
@@ -64,5 +65,9 @@ class UserServiceImpl : AbstractService<User, UserDto, UserMapper, UserRepositor
         log.info("BMI category defined: ${dto.bmiCategory} for ${dto.hashCode()}")
     }
 
-    fun findByLogin(userName: String) = repository!!.findByLogin(userName)
+    fun findByLogin(login: String): UserDto =
+            mapper!!.toDto(repository!!.findByLogin(login)
+                    ?: throw DataAccessException(StatusCode.DATABASE_ERROR.name, "User not found by login: $login"))
+
+    fun encode(string: String): String = encoder.encode(string)
 }

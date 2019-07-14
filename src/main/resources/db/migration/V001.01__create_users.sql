@@ -19,3 +19,9 @@ create table users
     pai          varchar(255) not null,
     weight       double       null
 );
+
+create index user_login_index
+    on users (login);
+
+alter table users
+    add constraint users_login_unique unique (login);

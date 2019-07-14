@@ -1,7 +1,7 @@
 package ru.xpendence.slimer.config.security.jwt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
-import ru.xpendence.slimer.entity.Role;
+import ru.xpendence.slimer.base.StatusCode;
 import ru.xpendence.slimer.exceptions.JwtAuthenticationException;
 
 import javax.annotation.PostConstruct;
@@ -20,7 +20,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -48,9 +47,9 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String login, List<Role> roles) {
+    public String createToken(String login, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(login);
-        claims.put("roles", getRoleNames(roles));
+        claims.put("roles", roles);
         Date now = new Date();
         Date expirationTime = new Date(now.getTime() + expires);
 
@@ -79,13 +78,11 @@ public class JwtTokenProvider {
 
     public boolean validate(String token) {
         try {
-            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getExpiration().after(new Date());
+        } catch (IllegalArgumentException e) {
+            throw new JwtAuthenticationException(StatusCode.UNAUTHORIZED.name(), "JWT token is invalid");
+        } catch (ExpiredJwtException e) {
+            throw new JwtAuthenticationException(StatusCode.UNAUTHORIZED.name(), "JWT token expired.");
         }
-    }
-
-    public List<String> getRoleNames(List<Role> roles) {
-        return roles.stream().map(r -> r.getRole().name()).collect(Collectors.toList());
     }
 }

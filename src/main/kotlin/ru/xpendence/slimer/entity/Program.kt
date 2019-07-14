@@ -15,8 +15,7 @@ import javax.persistence.*
 @Entity
 @Table(
         name = "programs",
-        indexes = [Index(columnList = "user_id", name = "program_user_index")],
-        uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "actual"])])
+        indexes = [Index(columnList = "user_id", name = "program_user_index")])
 @SQLDelete(sql = "UPDATE programs SET active = 0 WHERE id = ?")
 @Where(clause = "active=1")
 open class Program : AbstractEntity() {
