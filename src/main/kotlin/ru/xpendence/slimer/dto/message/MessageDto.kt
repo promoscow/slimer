@@ -10,8 +10,8 @@ import java.io.Serializable
  */
 open class MessageDto : Serializable {
 
-    val to: String? = null
-    val from: String? = null
-    val subject: String? = null
-    val text: String? = null
+    var to: String? = null
+    var from: String? = null
+    var subject: String? = null
+    var text: String? = null
 }

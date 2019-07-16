@@ -9,11 +9,19 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.PropertySource
 import org.springframework.context.annotation.PropertySources
 import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.web.client.RestTemplate
 
 @SpringBootApplication
 @EnableScheduling
-@PropertySources(PropertySource("classpath:security.properties"))
+@PropertySources(
+        PropertySource("classpath:security.properties"),
+        PropertySource("classpath:path.properties")
+)
 class SlimerApplication {
+
+    @Bean
+    fun restTemplate(): RestTemplate = RestTemplate()
+
     @Bean
     fun modelMapper(): ModelMapper {
         val mapper = ModelMapper()

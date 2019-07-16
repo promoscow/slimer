@@ -1,8 +1,10 @@
 package ru.xpendence.slimer.service
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 import ru.xpendence.slimer.annotations.ServiceImpl
 import ru.xpendence.slimer.base.RoleType
 import ru.xpendence.slimer.base.StatusCode
@@ -24,6 +26,15 @@ import ru.xpendence.slimer.util.*
 @ServiceImpl
 class UserServiceImpl @Autowired constructor(private val encoder: BCryptPasswordEncoder)
     : AbstractService<User, UserDto, UserMapper, UserRepository>() {
+
+    @Value("\${message.sender.path}")
+    lateinit var messageSenderPath: String
+
+    @Value("\${message.sender.port}")
+    lateinit var messageSenderPort: String
+
+    @Autowired
+    lateinit var restTemplate: RestTemplate
 
     override val log = logger<UserServiceImpl>()
 
