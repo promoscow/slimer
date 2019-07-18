@@ -1,11 +1,17 @@
 POST /user
 Host: localhost:8081
-Authorization: Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjI3OTM1NjQsInVzZXJfaWQiOiJhYmMxMjMifQ.7jGQBnY_ANFzsPExx15i8hxc7mYhiNG6-YmoqozP32I
+#Authorization: Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjI3OTM1NjQsInVzZXJfaWQiOiJhYmMxMjMifQ.7jGQBnY_ANFzsPExx15i8hxc7mYhiNG6-YmoqozP32I
 Content-Type: application/json
 
 {
-  "firstname": "Mikael",
-  "lastname": "Lazarev",
-  "city": "SPb",
-  "ideas": "Hi"
+  "login": "usssser",
+  "password": "wr4rew8cny7tow837e4ty",
+  "firstName": "Ivan",
+  "lastName": "Ivanov",
+  "height": 182,
+  "weight": 62.5,
+  "gender": "MALE",
+  "birthDate": "1982-08-20",
+  "physicalActivityIndex": 1.7,
+  "registrationEmail": "2262288@gmail.com"
 }

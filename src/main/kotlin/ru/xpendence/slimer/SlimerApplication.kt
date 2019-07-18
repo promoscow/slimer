@@ -8,6 +8,7 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.PropertySource
 import org.springframework.context.annotation.PropertySources
+import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.web.client.RestTemplate
 
@@ -17,6 +18,7 @@ import org.springframework.web.client.RestTemplate
         PropertySource("classpath:security.properties"),
         PropertySource("classpath:path.properties")
 )
+@EnableAsync
 class SlimerApplication {
 
     @Bean

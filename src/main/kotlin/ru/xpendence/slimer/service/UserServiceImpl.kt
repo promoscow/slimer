@@ -3,6 +3,7 @@ package ru.xpendence.slimer.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
+import org.springframework.scheduling.annotation.Async
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
@@ -104,6 +105,7 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
         log.info("BMI category defined: ${dto.bmiCategory} for ${dto.hashCode()}")
     }
 
+    @Async
     private fun sendRequestToMessageService(savedContact: ContactDto) {
         val emailMessageDto = EmailMessageDto()
 
