@@ -11,5 +11,6 @@ enum class StatusCode(val code: Int, val description: String) {
     BAD_REQUEST(1, "Ошибка при составлении запроса"),
     DATABASE_ERROR(2, "Ошибка при работе с базой"),
     UNAUTHORIZED(3, "Не авторизован"),
-    ACCESS_DENIED(4, "Доступ запрещён")
+    ACCESS_DENIED(4, "Доступ запрещён"),
+    EXTERNAL_REQUEST_ERROR(5, "Ошибка запроса во внешний сервис")
 }

@@ -1,0 +1,11 @@
+POST /user
+Host: localhost:8081
+Authorization: Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjI3OTM1NjQsInVzZXJfaWQiOiJhYmMxMjMifQ.7jGQBnY_ANFzsPExx15i8hxc7mYhiNG6-YmoqozP32I
+Content-Type: application/json
+
+{
+  "firstname": "Mikael",
+  "lastname": "Lazarev",
+  "city": "SPb",
+  "ideas": "Hi"
+}

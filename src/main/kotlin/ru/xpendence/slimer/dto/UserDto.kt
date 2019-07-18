@@ -3,6 +3,7 @@ package ru.xpendence.slimer.dto
 import com.fasterxml.jackson.annotation.JsonFormat
 import ru.xpendence.slimer.dto.validation.Validate
 import java.time.LocalDate
+import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Null
 
@@ -41,6 +42,10 @@ open class UserDto : AbstractDto() {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     open var birthDate: LocalDate? = null
+
+    @NotNull(groups = [Validate.Create::class])
+    @Email
+    open var registrationEmail: String? = null
 
     @Null
     open val contacts: MutableList<ContactDto> = ArrayList()

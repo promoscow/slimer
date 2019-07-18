@@ -15,3 +15,5 @@ class NoMatchingValueException(override val code: String, override val message: 
 class ApiException(override val code: String, override val message: String) : CustomException(code, message)
 
 class JwtAuthenticationException(override val code: String, override val message: String) : CustomException(code, message)
+
+class RestTemplateException(override val code: String, override val message: String) : CustomException(code, message)
