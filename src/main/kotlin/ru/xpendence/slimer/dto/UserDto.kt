@@ -73,4 +73,7 @@ open class UserDto : AbstractDto() {
 
     @Null
     open var roles: MutableList<String> = ArrayList()
+
+    @Null
+    open var registrationTokens: MutableList<RegistrationTokenDto> = ArrayList()
 }

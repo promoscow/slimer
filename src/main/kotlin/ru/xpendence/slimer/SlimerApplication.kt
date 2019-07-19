@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate
 @EnableScheduling
 @PropertySources(
         PropertySource("classpath:security.properties"),
-        PropertySource("classpath:path.properties")
+        PropertySource("classpath:path.properties"),
+        PropertySource("classpath:text.properties")
 )
 @EnableAsync
 class SlimerApplication {

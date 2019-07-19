@@ -13,6 +13,7 @@ import ru.xpendence.slimer.base.RoleType
 import ru.xpendence.slimer.base.StatusCode
 import ru.xpendence.slimer.base.indexes
 import ru.xpendence.slimer.dto.ContactDto
+import ru.xpendence.slimer.dto.RegistrationTokenDto
 import ru.xpendence.slimer.dto.UserDto
 import ru.xpendence.slimer.dto.message.EmailMessageDto
 import ru.xpendence.slimer.dto.message.ResponceDto
@@ -41,11 +42,23 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
     @Value("\${message.sender.port}")
     lateinit var messageSenderPort: String
 
+    @Value("\${email.registration.text}")
+    lateinit var emailRegistrationText: String
+
+    @Value("\${slimer.path}")
+    lateinit var slimerPath: String
+
+    @Value("\${slimer.port}")
+    lateinit var slimerPort: String
+
     @Autowired
     lateinit var restTemplate: RestTemplate
 
     @Autowired
     lateinit var contactService: ContactServiceImpl
+
+    @Autowired
+    lateinit var registrationTokenService: RegistrationTokenServiceImpl
 
     override val log = logger<UserServiceImpl>()
 
@@ -75,14 +88,7 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
         dto.roles.add(RoleType.GUEST.name)
 
         calculateFields(dto)
-
-        val primaryContact = ContactDto()
-        primaryContact.email = dto.registrationEmail
-
-        val savedContact = contactService.save(primaryContact)
-        dto.contacts.add(savedContact!!)
-
-        sendRequestToMessageService(savedContact)
+        sendRequestToMessageService(createAndSavePrimaryContact(dto), createAmdSaveRegistrationToken(dto))
     }
 
     fun findByLogin(login: String): UserDto =
@@ -90,6 +96,32 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
                     ?: throw DataAccessException(StatusCode.DATABASE_ERROR.name, "User not found by login: $login"))
 
     fun encode(string: String): String = encoder.encode(string)
+
+    @Async
+    fun sendRequestToMessageService(savedContact: ContactDto, savedRegistrationToken: RegistrationTokenDto) {
+        val emailMessageDto = EmailMessageDto()
+
+        val response = restTemplate.postForEntity(
+                UriComponentsBuilder.fromHttpUrl("$messageSenderPath:$messageSenderPort/email").toUriString(),
+                emailMessageDto.of(
+                        savedContact.email!!,
+                        "slava_rossii@list.ru",
+                        "Поздравляем с регистрацией в приложении Slimer!",
+                        String.format(
+                                emailRegistrationText,
+                                slimerPath, slimerPort, savedContact.email, savedRegistrationToken
+                        )
+                ),
+                ResponceDto::class.java
+        )
+        if (response.statusCode != HttpStatus.OK) {
+            throw RestTemplateException(
+                    StatusCode.EXTERNAL_REQUEST_ERROR.name,
+                    "Запрос в сервис отправки сообщений завершился ошибкой."
+            )
+        }
+        log.info("registration message sent to ${emailMessageDto.to}")
+    }
 
     private fun calculateFields(dto: UserDto) {
         dto.age = dto.calculateAge()
@@ -105,26 +137,17 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
         log.info("BMI category defined: ${dto.bmiCategory} for ${dto.hashCode()}")
     }
 
-    @Async
-    private fun sendRequestToMessageService(savedContact: ContactDto) {
-        val emailMessageDto = EmailMessageDto()
+    private fun createAmdSaveRegistrationToken(dto: UserDto): RegistrationTokenDto {
+        val savedRegistrationToken = registrationTokenService.save(RegistrationTokenDto())
+        dto.registrationTokens.add(savedRegistrationToken!!)
+        return savedRegistrationToken
+    }
 
-        val response = restTemplate.postForEntity(
-                UriComponentsBuilder.fromHttpUrl("$messageSenderPath:$messageSenderPort/email").toUriString(),
-                emailMessageDto.of(
-                        savedContact.email!!,
-                        "slava_rossii@list.ru",
-                        "Поздравляем с регистрацией в приложении Slimer!",
-                        "Пройдите по ссылке"
-                ),
-                ResponceDto::class.java
-        )
-        if (response.statusCode != HttpStatus.OK) {
-            throw RestTemplateException(
-                    StatusCode.EXTERNAL_REQUEST_ERROR.name,
-                    "Запрос в сервис отправки сообщений завершился ошибкой."
-            )
-        }
-        log.info("registration message sent to ${emailMessageDto.to}")
+    private fun createAndSavePrimaryContact(dto: UserDto): ContactDto {
+        val primaryContact = ContactDto()
+        primaryContact.email = dto.registrationEmail
+        val savedContact = contactService.save(primaryContact)
+        dto.contacts.add(savedContact!!)
+        return savedContact
     }
 }

@@ -87,4 +87,8 @@ open class User : AbstractEntity() {
             inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
     )
     open var roles: MutableList<Role> = ArrayList()
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
+    open var registrationTokens: MutableList<RegistrationToken> = ArrayList()
 }

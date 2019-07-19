@@ -3,10 +3,7 @@ package ru.xpendence.slimer.repository
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Repository
-import ru.xpendence.slimer.entity.AbstractEntity
-import ru.xpendence.slimer.entity.Activity
-import ru.xpendence.slimer.entity.Portion
-import ru.xpendence.slimer.entity.Product
+import ru.xpendence.slimer.entity.*
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -25,3 +22,6 @@ interface PortionRepository : CommonRepository<Portion>
 
 @Repository
 interface ActivityRepository : CommonRepository<Activity>
+
+@Repository
+interface RegistrationTokenRepository : CommonRepository<RegistrationToken>

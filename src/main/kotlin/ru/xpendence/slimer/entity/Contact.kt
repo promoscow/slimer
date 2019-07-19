@@ -19,7 +19,7 @@ open class Contact : AbstractEntity() {
     @Column(name = "phone")
     open var phone: Long? = null
 
-    @Column
+    @Column(name = "email", unique = true)
     open var email: String? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
