@@ -5,7 +5,7 @@ create table registration_tokens
     active          int          null,
     created         datetime     not null,
     updated         datetime     null,
-    user_id         bigint       not null,
+    user_id         bigint       null,
     token           varchar(255) not null,
     expiration_time datetime     not null
 );

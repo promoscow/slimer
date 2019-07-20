@@ -23,7 +23,7 @@ open class Contact : AbstractEntity() {
     open var email: String? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     open var user: User? = null
 
     @Column(name = "is_default")

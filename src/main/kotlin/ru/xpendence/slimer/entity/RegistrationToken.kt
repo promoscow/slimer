@@ -19,7 +19,7 @@ import javax.persistence.*
 open class RegistrationToken : AbstractEntity() {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", updatable = false, nullable = false)
+    @JoinColumn(name = "user_id")
     open var user: User? = null
 
     @Column(name = "token", updatable = false, nullable = false)

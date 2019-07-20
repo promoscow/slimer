@@ -88,7 +88,7 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
         dto.roles.add(RoleType.GUEST.name)
 
         calculateFields(dto)
-        sendRequestToMessageService(createAndSavePrimaryContact(dto), createAmdSaveRegistrationToken(dto))
+        sendRequestToMessageService(createAndSavePrimaryContact(dto), createAndSaveRegistrationToken(dto))
     }
 
     fun findByLogin(login: String): UserDto =
@@ -101,8 +101,9 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
     fun sendRequestToMessageService(savedContact: ContactDto, savedRegistrationToken: RegistrationTokenDto) {
         val emailMessageDto = EmailMessageDto()
 
+        log.info("registration message sent to ${emailMessageDto.to}")
         val response = restTemplate.postForEntity(
-                UriComponentsBuilder.fromHttpUrl("$messageSenderPath:$messageSenderPort/email").toUriString(),
+                UriComponentsBuilder.fromHttpUrl("http://$messageSenderPath:$messageSenderPort/email").toUriString(),
                 emailMessageDto.of(
                         savedContact.email!!,
                         "slava_rossii@list.ru",
@@ -117,10 +118,10 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
         if (response.statusCode != HttpStatus.OK) {
             throw RestTemplateException(
                     StatusCode.EXTERNAL_REQUEST_ERROR.name,
-                    "Запрос в сервис отправки сообщений завершился ошибкой."
+                    "Запрос в сервис отправки сообщений на email ${savedContact.email} завершился ошибкой."
             )
         }
-        log.info("registration message sent to ${emailMessageDto.to}")
+        log.info("Успешно отправлено письмо на email ${savedContact.email}")
     }
 
     private fun calculateFields(dto: UserDto) {
@@ -137,7 +138,7 @@ class UserServiceImpl @Autowired constructor(private val encoder: BCryptPassword
         log.info("BMI category defined: ${dto.bmiCategory} for ${dto.hashCode()}")
     }
 
-    private fun createAmdSaveRegistrationToken(dto: UserDto): RegistrationTokenDto {
+    private fun createAndSaveRegistrationToken(dto: UserDto): RegistrationTokenDto {
         val savedRegistrationToken = registrationTokenService.save(RegistrationTokenDto())
         dto.registrationTokens.add(savedRegistrationToken!!)
         return savedRegistrationToken

@@ -18,7 +18,11 @@ import ru.xpendence.slimer.repository.ContactRepository
 class ContactServiceImpl : AbstractService<Contact, ContactDto, ContactMapper, ContactRepository>() {
 
     override fun preCreate(dto: ContactDto?) {
-        if (repository!!.getAllByUserId(dto!!.user!!).isEmpty()) dto.default = true
+        val userId = dto!!.user
+        if (userId == null) dto.default = true
+        else {
+            if (repository!!.getAllByUserId(userId).isEmpty()) dto.default = true
+        }
     }
 
     override fun preUpdate(dto: ContactDto?) {
